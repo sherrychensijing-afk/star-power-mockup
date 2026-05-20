@@ -6,9 +6,10 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="format-detection" content="telephone=no">
-<title>STAR POWER 半年度荣誉痛楼解锁 - 交互稿</title>
+<title>STAR POWER 半年度盘点 - 交互稿</title>
+
 <style>
-  /* ===== CSS Variables (Star Power Official Neon Palette) ===== */
+  /* ===== CSS Variables ===== */
   :root {
     --brand-yellow: #F5E050;
     --brand-yellow-bright: #FFE135;
@@ -32,11 +33,7 @@
 
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
-  html {
-    font-size: 16px;
-    -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-  }
+  html { font-size: 16px; -webkit-text-size-adjust: 100%; }
 
   body {
     font-family: 'PingFang SC', -apple-system, 'Helvetica Neue', sans-serif;
@@ -54,7 +51,7 @@
     padding-right: env(safe-area-inset-right);
   }
 
-  /* ===== Noise Texture Overlay ===== */
+  /* ===== Noise Texture ===== */
   body::before {
     content: '';
     position: fixed;
@@ -62,18 +59,15 @@
     width: 200%; height: 200%;
     z-index: 0;
     pointer-events: none;
-    opacity: .045;
+    opacity: .04;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
     background-repeat: repeat;
   }
 
-  /* ===== SVG Noise Filter (for subtle grain) ===== */
-  .noise-filter { display: none; }
-
-  /* ===== Brand Bar (Top Yellow) ===== */
+  /* ===== Brand Bar ===== */
   .brand-bar {
     background: linear-gradient(90deg, #F5E050 0%, #FFE135 50%, #F5E050 100%);
-    padding: 8px 12px;
+    padding: 7px 12px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -85,45 +79,30 @@
   }
   .brand-bar span {
     font-weight: 800;
-    font-size: 12px;
+    font-size: 11px;
     color: #000;
     letter-spacing: 0.5px;
     white-space: nowrap;
   }
-  .brand-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: #000;
-    opacity: .5;
-  }
+  .brand-dot { width: 5px; height: 5px; border-radius: 50%; background: #000; opacity: .5; }
 
   /* ===== Hero Section ===== */
   .hero-section {
     position: relative;
-    padding: 40px 20px 36px;
+    padding: 36px 16px 28px;
     text-align: center;
     overflow: hidden;
     z-index: 1;
   }
-  .hero-section::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 120px;
-    background: linear-gradient(to top, var(--bg-black), transparent);
-    pointer-events: none;
-  }
-
-  /* Billboard tag */
-  .billboard-tag {
+  .hero-tag {
     display: inline-block;
     background: var(--magenta);
     color: white;
     font-weight: 700;
-    font-size: 14px;
-    padding: 6px 18px;
+    font-size: 13px;
+    padding: 5px 16px;
     border-radius: 4px;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     letter-spacing: 1px;
     box-shadow: 0 0 20px rgba(255,16,240,0.4);
     animation: tagPulse 2s ease-in-out infinite;
@@ -133,18 +112,17 @@
     50% { box-shadow: 0 0 35px rgba(255,16,240,0.7); }
   }
 
-  /* STAR POWER Title */
   .star-title {
-    font-size: clamp(52px, 14vw, 96px);
+    font-size: clamp(40px, 11vw, 72px);
     font-weight: 900;
-    line-height: 1;
-    letter-spacing: -2px;
+    line-height: 1.05;
+    letter-spacing: -1px;
     text-transform: uppercase;
     background: linear-gradient(135deg, var(--pink) 0%, var(--purple) 40%, var(--magenta) 70%, var(--orange-warm) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    filter: drop-shadow(0 0 30px rgba(255,105,180,0.5)) drop-shadow(0 0 60px rgba(200,80,255,0.3));
+    filter: drop-shadow(0 0 30px rgba(255,105,180,0.45)) drop-shadow(0 0 60px rgba(200,80,255,0.25));
     animation: titleShimmer 3s ease-in-out infinite;
     background-size: 200% 200%;
   }
@@ -154,50 +132,25 @@
     100% { background-position: 0% 50%; }
   }
 
-  /* Subtitle */
-  .subtitle-wrap {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 16px;
-  }
-  .subtitle-line {
-    width: 40px; height: 2px;
-    background: linear-gradient(90deg, transparent, var(--magenta));
-  }
-  .subtitle-line-right {
-    background: linear-gradient(90deg, var(--magenta), transparent);
-  }
-  .subtitle {
+  .hero-subtitle {
     color: var(--magenta-deep);
     font-weight: 700;
-    font-size: 18px;
+    font-size: 17px;
     letter-spacing: 2px;
+    margin-top: 14px;
   }
-
-  /* Description */
-  .desc-text {
+  .hero-desc {
     color: var(--green-fluo);
     font-size: 13px;
-    margin-top: 14px;
-    opacity: .9;
+    margin-top: 12px;
+    opacity: .85;
     max-width: 340px;
     margin-left: auto;
     margin-right: auto;
-    line-height: 1.6;
-  }
-
-  /* Time & Countdown Row */
-  .time-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    margin-top: 22px;
-    flex-wrap: wrap;
+    line-height: 1.7;
   }
   .time-pill {
+    display: inline-block;
     border: 1px solid var(--brand-yellow);
     color: var(--brand-yellow);
     font-size: 12px;
@@ -205,149 +158,503 @@
     padding: 4px 14px;
     border-radius: 20px;
     letter-spacing: 1px;
+    margin-top: 18px;
   }
-  .countdown {
+
+  /* ===== Section Common Styles ===== */
+  .section-block {
+    position: relative;
+    z-index: 1;
+    padding: 0 16px;
+  }
+  .section-header {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 8px;
+    padding: 24px 4px 16px;
   }
-  .cd-block {
-    background: rgba(255,225,80,0.12);
-    border: 1px solid rgba(255,225,80,0.3);
-    color: var(--brand-yellow);
-    font-weight: 700;
-    font-size: 15px;
-    min-width: 32px;
-    padding: 4px 6px;
-    border-radius: 4px;
-    text-align: center;
+  .section-num {
+    background: linear-gradient(135deg, var(--magenta), var(--purple));
+    color: white;
+    font-weight: 800;
+    font-size: 12px;
+    width: 26px;
+    height: 26px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
   }
-  .cd-label { font-size: 11px; color: var(--dim); }
+  .section-title {
+    font-size: 19px;
+    font-weight: 800;
+    color: var(--white);
+    letter-spacing: 0.5px;
+  }
+  .section-subtitle {
+    font-size: 12px;
+    color: var(--dim);
+    margin-left: auto;
+  }
 
-  /* Total coins display */
-  .total-coins-area {
-    margin-top: 24px;
-    padding: 16px 20px;
+  /* ========================================
+     SECTION 1: 荣誉盘点
+  ======================================== */
+  .honor-section { padding-bottom: 10px; }
+
+  .award-card {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
-    border-radius: 12px;
-    display: inline-block;
+    border-radius: 14px;
+    padding: 18px 14px;
+    margin-bottom: 14px;
   }
-  .total-label { font-size: 11px; color: var(--dim); margin-bottom: 4px; letter-spacing: 1px; }
-  .total-num {
-    font-size: 32px;
+  .award-title-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .award-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .award-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--brand-yellow);
+    flex: 1;
+  }
+  .award-badge {
+    background: linear-gradient(135deg, rgba(245,224,80,0.15), rgba(255,225,53,0.08));
+    border: 1px solid rgba(245,224,80,0.3);
+    color: var(--brand-yellow);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+    white-space: nowrap;
+  }
+
+  /* Avatar Grid */
+  .avatar-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px 8px;
+  }
+  .avatar-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  .avatar-item:active { transform: scale(0.92); }
+
+  .artist-avatar-wrap {
+    position: relative;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    overflow: visible;
+  }
+  .artist-avatar-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+    color: #fff;
+    position: relative;
+    border: 2px solid rgba(255,16,240,0.25);
+    transition: border-color 0.3s ease;
+  }
+  .avatar-item:hover .artist-avatar-img,
+  .avatar-item.active .artist-avatar-img {
+    border-color: var(--magenta);
+    box-shadow: 0 0 16px rgba(255,16,240,0.35);
+  }
+
+  /* Follow button on avatar */
+  .avatar-follow {
+    position: absolute;
+    bottom: -2px; right: -2px;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--magenta);
+    border: 2px solid var(--bg-black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    color: white;
+    cursor: pointer;
+    z-index: 2;
+    transition: all 0.2s ease;
+  }
+  .avatar-follow.followed {
+    background: var(--green-fluo);
+    color: #000;
+  }
+  .avatar-follow.followed::after { content: '✓'; }
+
+  /* Share card overlay trigger */
+  .avatar-share-btn {
+    position: absolute;
+    top: -2px; left: -2px;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: rgba(255,225,80,0.9);
+    border: 2px solid var(--bg-black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    color: #000;
+    cursor: pointer;
+    z-index: 2;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.2s ease;
+  }
+  .avatar-item:hover .avatar-share-btn,
+  .avatar-share-btn.show {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .avatar-label {
+    font-size: 11px;
+    color: var(--white);
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 60px;
+    text-align: center;
+  }
+
+  /* Share Card Modal */
+  .share-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 20px;
+  }
+  .share-modal-overlay.show { display: flex; }
+  .share-card {
+    width: 300px;
+    background: linear-gradient(145deg, #1a0a2e, #0d0520);
+    border: 1px solid var(--magenta);
+    border-radius: 16px;
+    overflow: hidden;
+    animation: shareCardIn 0.35s cubic-bezier(0.22,1,0.36,1);
+    position: relative;
+  }
+  @keyframes shareCardIn {
+    from { opacity: 0; transform: scale(0.85) translateY(20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .share-card-header {
+    background: linear-gradient(135deg, var(--magenta), var(--purple), var(--pink));
+    padding: 20px 16px;
+    text-align: center;
+    position: relative;
+  }
+  .share-card-avatar {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    margin: 0 auto 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 24px;
+    color: #fff;
+    border: 3px solid rgba(255,255,255,0.4);
+  }
+  .share-card-name {
+    font-size: 18px;
+    font-weight: 800;
+    color: #fff;
+  }
+  .share-card-award {
+    font-size: 12px;
+    color: rgba(255,255,255,0.8);
+    margin-top: 2px;
+  }
+  .share-card-body {
+    padding: 20px 16px;
+    text-align: center;
+  }
+  .share-card-stat {
+    margin-bottom: 10px;
+  }
+  .share-card-stat-label {
+    font-size: 11px;
+    color: var(--dim);
+    margin-bottom: 2px;
+  }
+  .share-card-stat-value {
+    font-size: 26px;
     font-weight: 900;
-    background: linear-gradient(90deg, var(--green-fluo), var(--magenta));
+    background: linear-gradient(90deg, var(--brand-yellow), var(--orange-warm));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-  .total-unit { font-size: 14px; color: var(--green-fluo); font-weight: 600; margin-left: 4px; }
-
-  /* ===== Search Bar (Sticky) ===== */
-  .search-wrapper {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    padding: 12px 16px;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    background: rgba(0,0,0,0.75);
-    border-bottom: 1px solid rgba(255,16,240,0.08);
+  .share-card-footer {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 12px;
+    text-align: center;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
   }
-  .search-box {
+  .share-action-btn {
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  .share-save-btn {
+    background: linear-gradient(135deg, var(--magenta), var(--pink));
+    color: white;
+  }
+  .share-close-btn {
+    background: transparent;
+    color: var(--dim);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .share-close-modal {
+    position: absolute;
+    top: 10px; right: 10px;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.4);
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
     display: flex;
     align-items: center;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 24px;
-    padding: 10px 16px;
+    justify-content: center;
+  }
+
+  /* ========================================
+     SECTION 2: 城市记忆
+  ======================================== */
+  .city-section { padding-bottom: 10px; }
+
+  .city-map-container {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 20px 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  .city-map-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  /* Simplified China map path style */
+  .map-province {
+    fill: rgba(255,255,255,0.03);
+    stroke: rgba(255,16,240,0.12);
+    stroke-width: 0.5;
+    transition: fill 0.3s ease;
+  }
+  .map-city-marker {
+    cursor: pointer;
     transition: all 0.3s ease;
   }
-  .search-box:focus-within {
-    border-color: var(--magenta);
-    box-shadow: 0 0 16px rgba(255,16,240,0.3), inset 0 0 12px rgba(255,16,240,0.05);
+  .marker-dot {
+    fill: var(--progress-locked);
+    transition: all 0.4s ease;
   }
-  .search-icon {
-    width: 18px; height: 18px;
-    margin-right: 10px;
-    color: var(--green-fluo);
-    flex-shrink: 0;
+  .marker-glow {
+    fill: none;
+    stroke: var(--magenta);
+    stroke-width: 2;
+    opacity: 0;
+    transition: all 0.4s ease;
   }
-  .search-input {
-    background: transparent;
-    border: none;
-    outline: none;
-    color: var(--white);
-    font-size: 16px;
-    width: 100%;
-    font-family: inherit;
-    -webkit-appearance: none;
-    appearance: none;
-    border-radius: 0;
+  .map-city-marker.lit .marker-dot {
+    fill: var(--brand-yellow);
+    filter: drop-shadow(0 0 8px rgba(245,224,80,0.6));
   }
-  .search-input::placeholder { color: #555; }
+  .map-city-marker.lit .marker-glow {
+    opacity: 0.6;
+    animation: markerGlow 2s ease-in-out infinite;
+  }
+  @keyframes markerGlow {
+    0%, 100% { opacity: 0.3; stroke-width: 2; }
+    50% { opacity: 0.8; stroke-width: 4; }
+  }
+  .marker-label {
+    font-size: 9px;
+    fill: rgba(255,255,255,0.5);
+    text-anchor: middle;
+    transition: fill 0.3s ease;
+    pointer-events: none;
+  }
+  .map-city-marker.lit .marker-label,
+  .map-city-marker:hover .marker-label {
+    fill: var(--brand-yellow);
+    font-weight: 700;
+  }
 
-  /* ===== Artist List Section ===== */
-  .artist-section {
-    position: relative;
-    z-index: 1;
-    padding: 0 16px 30px;
-  }
-  .section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 4px 14px;
-  }
-  .section-title {
-    font-size: 18px;
-    font-weight: 800;
-    color: var(--magenta);
-    letter-spacing: 1px;
-  }
-  .section-count {
+  .city-tip {
+    text-align: center;
     font-size: 12px;
     color: var(--dim);
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .lit-count {
+    color: var(--brand-yellow);
+    font-weight: 700;
   }
 
-  /* Artist Card */
+  /* City detail popup */
+  .city-popup {
+    position: absolute;
+    bottom: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(145deg, #1a0a2e, #0d0520);
+    border: 1px solid var(--magenta);
+    border-radius: 12px;
+    padding: 14px 18px;
+    min-width: 220px;
+    z-index: 20;
+    display: none;
+    animation: popIn 0.3s ease;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6), 0 0 20px rgba(255,16,240,0.15);
+  }
+  .city-popup.show { display: block; }
+  @keyframes popIn {
+    from { opacity: 0; transform: translateX(-50%) scale(0.9); }
+    to { opacity: 1; transform: translateX(-50%) scale(1); }
+  }
+  .popup-city-name {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--brand-yellow);
+    margin-bottom: 6px;
+  }
+  .popup-event {
+    font-size: 13px;
+    color: var(--white);
+    line-height: 1.5;
+  }
+  .popup-event-date {
+    font-size: 11px;
+    color: var(--green-fluo);
+    margin-top: 4px;
+  }
+
+  /* ========================================
+     SECTION 3: 星能储藏室（投币玩法）
+  ======================================== */
+  .vault-section { padding-bottom: 10px; }
+
+  .vault-intro {
+    background: linear-gradient(135deg, rgba(255,16,240,0.06), rgba(200,80,255,0.04));
+    border: 1px solid rgba(255,16,240,0.15);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .vault-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+  }
+  .vault-intro-text {
+    font-size: 13px;
+    color: var(--green-fluo);
+    line-height: 1.5;
+    flex: 1;
+  }
+  .vault-intro-text b {
+    color: var(--brand-yellow);
+  }
+
+  .countdown-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .cd-block {
+    background: rgba(255,225,80,0.1);
+    border: 1px solid rgba(255,225,80,0.25);
+    color: var(--brand-yellow);
+    font-weight: 700;
+    font-size: 14px;
+    min-width: 30px;
+    padding: 3px 6px;
+    border-radius: 4px;
+    text-align: center;
+  }
+  .cd-label { font-size: 10px; color: var(--dim); }
+
+  /* Artist Card for vault section */
   .artist-card {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
     border-radius: 14px;
-    padding: 14px 16px;
-    margin-bottom: 12px;
+    padding: 13px 14px;
+    margin-bottom: 10px;
     transition: all 0.3s ease;
     animation: cardFadeIn 0.5s ease backwards;
   }
   .artist-card:hover {
     border-color: rgba(255,16,240,0.35);
     background: rgba(255,255,255,0.06);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 24px rgba(255,16,240,0.08);
   }
   @keyframes cardFadeIn {
     from { opacity: 0; transform: translateY(16px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
-  .artist-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+  .artist-row { display: flex; align-items: center; gap: 10px; }
 
-  /* Avatar */
   .avatar {
-    width: 44px; height: 44px;
+    width: 42px; height: 42px;
     border-radius: 50%;
     flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 700;
-    font-size: 16px;
+    font-size: 15px;
     color: #fff;
     position: relative;
   }
@@ -362,19 +669,18 @@
     mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
-    opacity: .5;
+    opacity: .4;
   }
 
   .artist-info { flex: 1; min-width: 0; }
   .artist-song {
-    font-size: 14px;
+    font-size: 13px;
     color: var(--brand-yellow);
     font-weight: 600;
     margin-bottom: 1px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    letter-spacing: 0.3px;
   }
   .artist-name {
     font-weight: 700;
@@ -385,13 +691,11 @@
     text-overflow: ellipsis;
   }
   .artist-coins {
-    font-size: 13px;
+    font-size: 12px;
     color: var(--magenta);
     font-weight: 600;
-    margin-top: 2px;
+    margin-top: 1px;
   }
-
-  /* Unlocked badge */
   .unlocked-badge {
     display: inline-flex;
     align-items: center;
@@ -399,78 +703,61 @@
     background: linear-gradient(135deg, rgba(0,230,118,0.15), rgba(245,224,80,0.15));
     border: 1px solid rgba(0,230,118,0.3);
     color: var(--green-fluo);
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 700;
-    padding: 2px 8px;
+    padding: 1px 7px;
     border-radius: 10px;
-    margin-top: 4px;
+    margin-top: 3px;
   }
 
-  /* Invest Button */
   .invest-btn {
     background: linear-gradient(135deg, var(--magenta), var(--pink));
     color: white;
     border: none;
-    padding: 8px 14px;
+    padding: 7px 13px;
     border-radius: 20px;
     font-weight: 700;
-    font-size: 13px;
+    font-size: 12px;
     cursor: pointer;
     flex-shrink: 0;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 12px rgba(255,16,240,0.3);
+    box-shadow: 0 2px 10px rgba(255,16,240,0.3);
     white-space: nowrap;
     -webkit-user-select: none;
     user-select: none;
     touch-action: manipulation;
   }
-  .invest-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 24px rgba(255,16,240,0.5);
-  }
   .invest-btn:active { transform: scale(0.95); }
 
-  /* ===== Multi-Level Progress Bar ===== */
-  .progress-area { margin-top: 12px; }
+  /* Progress Bar */
+  .progress-area { margin-top: 10px; }
   .progress-info {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 6px;
+    margin-bottom: 5px;
   }
-  .progress-text-left {
-    font-size: 12px;
-    color: var(--white);
-    font-weight: 600;
-  }
+  .progress-text-left { font-size: 11px; color: var(--white); font-weight: 600; }
   .progress-text-left span { color: var(--magenta); }
-  .progress-text-right {
-    font-size: 11px;
-    color: var(--green-fluo);
-    font-weight: 600;
-  }
+  .progress-text-right { font-size: 10px; color: var(--green-fluo); font-weight: 600; }
   .progress-text-right.locked-color { color: var(--dim); }
 
   .progress-track {
     position: relative;
-    height: 22px;
+    height: 20px;
     background: var(--track-bg);
-    border-radius: 11px;
+    border-radius: 10px;
     overflow: visible;
   }
-
-  /* Progress Fill */
   .progress-fill {
     position: absolute;
     left: 0; top: 0;
     height: 100%;
-    border-radius: 11px;
+    border-radius: 10px;
     transition: width 1.8s cubic-bezier(0.22, 1, 0.36, 1);
     display: flex;
     align-items: center;
   }
-
-  /* Tick marks on progress bar */
   .tick-container {
     position: absolute;
     left: 0; top: 0;
@@ -483,8 +770,8 @@
   .tick {
     position: absolute;
     width: 2px;
-    height: 14px;
-    background: rgba(255,255,255,0.15);
+    height: 12px;
+    background: rgba(255,255,255,0.12);
     border-radius: 1px;
     transform: translateX(-50%);
     display: flex;
@@ -493,41 +780,33 @@
   }
   .tick-label {
     position: absolute;
-    top: -18px;
-    font-size: 9px;
-    color: rgba(255,255,255,0.35);
+    top: -16px;
+    font-size: 8px;
+    color: rgba(255,255,255,0.3);
     font-weight: 600;
     white-space: nowrap;
   }
   .tick.passed .tick-label { color: var(--progress-unlocked); }
-  .tick.passed { background: var(--progress-unlocked); opacity: .8; }
-  .tick.current { background: var(--magenta); height: 18px; box-shadow: 0 0 8px rgba(255,16,240,0.6); animation: tickPulse 1.5s ease-in-out infinite; }
-  .tick-check {
-    position: absolute;
-    top: -14px;
-    font-size: 9px;
-    color: var(--green-fluo);
-    font-weight: 900;
-  }
-
+  .tick.passed { background: var(--progress-unlocked); opacity: .7; }
+  .tick.current { background: var(--magenta); height: 16px; box-shadow: 0 0 8px rgba(255,16,240,0.5); animation: tickPulse 1.5s ease-in-out infinite; }
+  .tick-check { position: absolute; top: -12px; font-size: 8px; color: var(--green-fluo); font-weight: 900; }
   @keyframes tickPulse {
-    0%, 100% { box-shadow: 0 0 8px rgba(255,16,240,0.6); }
-    50% { box-shadow: 0 0 16px rgba(255,16,240,0.9); }
+    0%, 100% { box-shadow: 0 0 8px rgba(255,16,240,0.5); }
+    50% { box-shadow: 0 0 16px rgba(255,16,240,0.8); }
   }
 
-  /* Expand/Collapse Button */
   .expand-btn {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 6px;
     width: 100%;
-    padding: 14px;
+    padding: 12px;
     background: transparent;
-    border: 1px dashed rgba(255,16,240,0.25);
+    border: 1px dashed rgba(255,16,240,0.2);
     border-radius: 12px;
     color: var(--magenta);
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -536,42 +815,22 @@
     user-select: none;
     touch-action: manipulation;
   }
-  .expand-btn:hover {
-    border-color: var(--magenta);
-    background: rgba(255,16,240,0.04);
-  }
   .expand-icon { transition: transform 0.3s ease; }
   .expand-btn.expanded .expand-icon { transform: rotate(180deg); }
-
-  /* Hidden cards container */
-  .hidden-cards {
-    overflow: hidden;
-    transition: max-height 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-    max-height: 0;
-  }
+  .hidden-cards { overflow: hidden; transition: max-height 0.5s cubic-bezier(0.22, 1, 0.36, 1); max-height: 0; }
   .hidden-cards.show { max-height: 5000px; }
 
-  /* ===== Earn Coins Section ===== */
-  .earn-section {
-    position: relative;
-    z-index: 1;
-    padding: 24px 16px 50px;
-    margin-top: 10px;
-  }
+  /* Earn Coins area within vault */
   .earn-card {
     background: linear-gradient(135deg, rgba(255,16,240,0.06), rgba(200,80,255,0.04));
     border: 1px solid rgba(255,16,240,0.2);
     border-top: 3px solid var(--magenta);
-    border-radius: 16px;
-    padding: 28px 20px;
+    border-radius: 14px;
+    padding: 22px 18px;
     text-align: center;
+    margin-top: 14px;
   }
-  .earn-title {
-    font-size: 17px;
-    font-weight: 800;
-    color: var(--white);
-    margin-bottom: 20px;
-  }
+  .earn-title { font-size: 16px; font-weight: 800; color: var(--white); margin-bottom: 16px; }
   .earn-btn-primary {
     display: inline-flex;
     align-items: center;
@@ -580,10 +839,10 @@
     background-size: 200% 200%;
     color: white;
     border: none;
-    padding: 14px 32px;
-    border-radius: 28px;
+    padding: 12px 30px;
+    border-radius: 26px;
     font-weight: 800;
-    font-size: 16px;
+    font-size: 15px;
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 4px 24px rgba(255,16,240,0.4);
@@ -602,15 +861,11 @@
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
   }
-  .earn-btn-primary:hover {
-    transform: translateY(-2px) scale(1.03);
-    box-shadow: 0 8px 36px rgba(255,16,240,0.55);
-  }
   .earn-link {
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    margin-top: 14px;
+    margin-top: 12px;
     color: var(--green-fluo);
     font-size: 13px;
     font-weight: 600;
@@ -618,15 +873,62 @@
     cursor: pointer;
     transition: all 0.2s ease;
   }
-  .earn-link:hover { opacity: .8; }
   .earn-hint {
     font-size: 11px;
     color: var(--dim);
-    margin-top: 12px;
+    margin-top: 10px;
     line-height: 1.5;
   }
 
-  /* ===== Staggered Animation Delays ===== */
+  /* ========================================
+     SECTION 4: 其他精彩活动
+  ======================================== */
+  .activity-section { padding-bottom: 40px; }
+  .banner-slot {
+    background: var(--card-bg);
+    border: 1px dashed rgba(255,16,240,0.2);
+    border-radius: 14px;
+    padding: 32px 20px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .banner-slot::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,16,240,0.04), rgba(200,80,255,0.02));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .banner-slot:hover { border-style: solid; border-color: rgba(255,16,240,0.35); }
+  .banner-slot:hover::after { opacity: 1; }
+  .banner-slot-info { position: relative; z-index: 1; }
+  .banner-slot-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+  .banner-slot-desc {
+    font-size: 12px;
+    color: var(--dim);
+  }
+  .banner-slot-arrow {
+    position: relative;
+    z-index: 1;
+    color: var(--magenta);
+    font-size: 20px;
+    flex-shrink: 0;
+    margin-left: 12px;
+  }
+
+  /* Staggered animation delays */
   .artist-card:nth-child(1) { animation-delay: 0.05s; }
   .artist-card:nth-child(2) { animation-delay: 0.1s; }
   .artist-card:nth-child(3) { animation-delay: 0.15s; }
@@ -638,62 +940,44 @@
   .artist-card:nth-child(9) { animation-delay: 0.45s; }
   .artist-card:nth-child(10) { animation-delay: 0.5s; }
 
-  /* ===== No Results State ===== */
-  .no-results {
-    text-align: center;
-    padding: 40px 0;
-    color: var(--dim);
-    font-size: 14px;
-  }
-
-  /* ===== Footer note ===== */
+  /* Footer */
   .footer-note {
     text-align: center;
     padding: 20px;
-    font-size: 11px;
-    color: rgba(255,255,255,0.15);
+    font-size: 10px;
+    color: rgba(255,255,255,0.12);
     border-top: 1px solid rgba(255,255,255,0.04);
     padding-bottom: calc(20px + env(safe-area-inset-bottom));
   }
 
-  /* ===== Mobile-specific overrides ===== */
+  /* Mobile overrides */
   @media screen and (max-width: 375px) {
     .star-title { letter-spacing: -1px; }
     .brand-bar { gap: 8px; padding: 6px 8px; }
-    .brand-bar span { font-size: 11px; }
-    .hero-section { padding: 28px 14px 28px; }
-    .artist-section { padding: 0 12px 24px; }
-    .earn-section { padding: 20px 12px 40px; }
-    .progress-text-left { font-size: 11px; }
-    .progress-text-right { font-size: 10px; }
-    .tick-label { font-size: 8px; }
-    .artist-song { font-size: 13px; }
-    .artist-name { font-size: 12px; }
-    .artist-coins { font-size: 12px; }
-    .invest-btn { padding: 6px 12px; font-size: 12px; }
+    .brand-bar span { font-size: 10px; }
+    .hero-section { padding: 28px 12px 24px; }
+    .section-block { padding: 0 12px; }
+    .avatar-grid { grid-template-columns: repeat(5, 1fr); gap: 10px 6px; }
+    .artist-avatar-wrap { width: 50px; height: 50px; }
+    .artist-avatar-img { font-size: 16px; }
+    .avatar-label { font-size: 10px; max-width: 52px; }
+    .earn-btn-primary { padding: 10px 24px; font-size: 14px; }
   }
 
   @media screen and (min-width: 768px) {
-    body {
-      max-width: 480px;
-      margin: 0 auto;
-      box-shadow: 0 0 80px rgba(255,16,240,0.08);
-    }
+    body { max-width: 480px; margin: 0 auto; box-shadow: 0 0 80px rgba(255,16,240,0.08); }
   }
 
-  /* Prevent iOS bounce scroll issues */
-  body {
-    overscroll-behavior: none;
-  }
-
+  body { overscroll-behavior: none; }
 </style>
 </head>
 <body>
 
-<!-- SVG Filters -->
-<svg class="noise-filter"><defs><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/></filter></defs></svg>
+<!-- SVG Noise Filter -->
+<svg style="display:none"><defs><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/></filter></defs></svg>
 
-<!-- ===== Block 1: Brand Bar ===== -->
+
+<!-- ========== BRAND BAR ========== -->
 <div class="brand-bar">
   <span>📊 billboard</span>
   <div class="brand-dot"></div>
@@ -702,83 +986,305 @@
   <span>🎧 JOOX</span>
 </div>
 
-<!-- ===== Block 2: Hero / 头图 ===== -->
-<section class="hero-section" id="hero">
-  <div class="billboard-tag">Billboard China × STAR POWER</div>
 
+<!-- ========== HERO / 头图 ========== -->
+<section class="hero-section">
+  <div class="hero-tag">Billboard China × STAR POWER</div>
   <h1 class="star-title">STAR<br>POWER</h1>
-
-  <div class="subtitle-wrap">
-    <div class="subtitle-line"></div>
-    <span class="subtitle">半年度荣誉痛楼解锁</span>
-    <div class="subtitle-line subtitle-line-right"></div>
-  </div>
-
-  <p class="desc-text">
-    Billboard 公告牌联合 QQ音乐、JOOX 重磅开启「Star Power」半年度评选，粉丝为 TA 助力投币，每累计 <b style="color:var(--brand-yellow)">100万金币</b> 即可解锁一座荣誉痛楼！
+  <div class="hero-subtitle">半年度盘点</div>
+  <p class="hero-desc">
+    探索过去半年在月度评选中诞生的高光时刻、城市足迹、公益行动与音乐记忆，每一份热爱都值得被铭记 ✨
   </p>
-
-  <div class="time-row">
-    <div class="time-pill">⏰ 2025.06.10 — 06.30</div>
-    <div class="countdown">
-      <span class="cd-label">距结束</span>
-      <span class="cd-block">21</span>
-      <span class="cd-label">天</span>
-      <span class="cd-block">05</span>
-      <span class="cd-label">时</span>
-      <span class="cd-block">42</span>
-      <span class="cd-label">分</span>
-    </div>
-  </div>
-
-  <div class="total-coins-area">
-    <div class="total-label">全站累计助力金币</div>
-    <div>
-      <span class="total-num" id="totalCoinsNum">0</span>
-      <span class="total-unit">枚</span>
-    </div>
-  </div>
+  <div class="time-pill">📅 2025 上半年度 · 01月 — 06月</div>
 </section>
 
-<!-- ===== Block 4: Artist List ===== -->
-<section class="artist-section" id="artistSection">
+
+<!-- ========== 一、荣誉盘点 ========== -->
+<div class="section-block honor-section">
   <div class="section-header">
-    <span class="section-title">🎤 入围艺人</span>
-    <span class="section-count" id="artistCount">共 18 位</span>
+    <span class="section-num">1</span>
+    <span class="section-title">🏆 荣誉盘点</span>
+    <span class="section-subtitle">4个维度</span>
+  </div>
+  <div id="awardsContainer"></div>
+</div>
+
+
+<!-- ========== 二、城市记忆 ========== -->
+<div class="section-block city-section">
+  <div class="section-header">
+    <span class="section-num">2</span>
+    <span class="section-title">🗺 Star Power 的城市记忆</span>
+  </div>
+  <div class="city-map-container">
+    <svg class="city-map-svg" viewBox="0 0 320 280" xmlns="http://www.w3.org/2000/svg">
+      <!-- Simplified decorative map outline -->
+      <ellipse cx="160" cy="140" rx="130" ry="110" fill="rgba(255,255,255,0.015)" stroke="rgba(255,16,240,0.08)" stroke-width="1"/>
+      <!-- Decorative grid lines -->
+      <line x1="30" y1="140" x2="290" y2="140" stroke="rgba(255,16,240,0.05)" stroke-dasharray="4,6"/>
+      <line x1="160" y1="30" x2="160" y2="250" stroke="rgba(255,16,240,0.05)" stroke-dasharray="4,6"/>
+
+      <!-- City markers -->
+      <!-- Beijing -->
+      <g class="map-city-marker" data-city="beijing" onclick="lightCity(this)">
+        <circle class="marker-glow" cx="210" cy="78" r="12"/>
+        <circle class="marker-dot" cx="210" cy="78" r="6"/>
+        <text class="marker-label" x="210" y="96">北京</text>
+      </g>
+      <!-- Shanghai -->
+      <g class="map-city-marker" data-city="shanghai" onclick="lightCity(this)">
+        <circle class="marker-glow" cx="250" cy="150" r="12"/>
+        <circle class="marker-dot" cx="250" cy="150" r="6"/>
+        <text class="marker-label" x="250" y="168">上海</text>
+      </g>
+      <!-- Guangzhou -->
+      <g class="map-city-marker" data-city="guangzhou" onclick="lightCity(this)">
+        <circle class="marker-glow" cx="198" cy="208" r="12"/>
+        <circle class="marker-dot" cx="198" cy="208" r="6"/>
+        <text class="marker-label" x="198" y="226">广州</text>
+      </g>
+      <!-- Chengdu -->
+      <g class="map-city-marker" data-city="chengdu" onclick="lightCity(this)">
+        <circle class="marker-glow" cx="105" cy="158" r="12"/>
+        <circle class="marker-dot" cx="105" cy="158" r="6"/>
+        <text class="marker-label" x="105" y="176">成都</text>
+      </g>
+      <!-- Wuhan -->
+      <g class="map-city-marker" data-city="wuhan" onclick="lightCity(this)">
+        <circle class="marker-glow" cx="165" cy="148" r="12"/>
+        <circle class="marker-dot" cx="165" cy="148" r="6"/>
+        <text class="marker-label" x="165" y="166">武汉</text>
+      </g>
+      <!-- Changsha -->
+      <g class="map-city-marker" data-city="changsha" onclick="lightCity(this)">
+        <circle class="marker-glow" cx="155" cy="178" r="12"/>
+        <circle class="marker-dot" cx="155" cy="178" r="6"/>
+        <text class="marker-label" x="155" y="196">长沙</text>
+      </g>
+      <!-- Hangzhou -->
+      <g class="map-city-marker" data-city="hangzhou" onclick="lightCity(this)">
+        <circle class="marker-glow" cx="232" cy="156" r="12"/>
+        <circle class="marker-dot" cx="232" cy="156" r="6"/>
+        <text class="marker-label" x="232" y="174">杭州</text>
+      </g>
+      <!-- Xi'an -->
+      <g class="map-city-marker" data-city="xian" onclick="lightCity(this)">
+        <circle class="marker-glow" cx="118" cy="120" r="12"/>
+        <circle class="marker-dot" cx="118" cy="120" r="6"/>
+        <text class="marker-label" x="118" y="138">西安</text>
+      </g>
+      <!-- Shenzhen -->
+      <g class="map-city-marker" data-city="shenzhen" onclick="lightCity(this)">
+        <circle class="marker-glow" cx="212" cy="218" r="12"/>
+        <circle class="marker-dot" cx="212" cy="218" r="6"/>
+        <text class="marker-label" x="212" y="236">深圳</text>
+      </g>
+    </svg>
+
+    <!-- City popup -->
+    <div class="city-popup" id="cityPopup">
+      <div class="popup-city-name" id="popupCityName"></div>
+      <div class="popup-event" id="popupEvent"></div>
+      <div class="popup-event-date" id="popupEventDate"></div>
+    </div>
+
+    <div class="city-tip">
+      👆 点击城市地标点亮 Star Power 大屏记忆 &nbsp;|&nbsp; 已点亮 <span class="lit-count" id="litCount">0</span>/9 座城市
+    </div>
+  </div>
+</div>
+
+
+<!-- ========== 三、星能储藏室（投币玩法）========== -->
+<div class="section-block vault-section">
+  <div class="section-header">
+    <span class="section-num">3</span>
+    <span class="section-title">⚡ 星能储藏室</span>
   </div>
 
-  <div id="artistListContainer">
-    <!-- Cards rendered by JS -->
+  <div class="vault-intro">
+    <span class="vault-icon">💫</span>
+    <div class="vault-intro-text">
+      为你喜爱的艺人投送星能金币，每累计 <b>100万金币</b> 即可解锁一座专属「荣誉痛楼」！<br>
+      活动时间：<b>6.10 — 6.30</b>
+    </div>
   </div>
+
+  <div class="countdown-row">
+    <span class="cd-label">距结束</span>
+    <span class="cd-block">21</span><span class="cd-label">天</span>
+    <span class="cd-block">05</span><span class="cd-label">时</span>
+    <span class="cd-block">42</span><span class="cd-label">分</span>
+  </div>
+
+  <div id="artistListContainer"></div>
 
   <button class="expand-btn" id="expandBtn" onclick="toggleExpand()">
     <span>展开更多</span>
     <svg class="expand-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
   </button>
-</section>
 
-<!-- ===== Block 5: Earn Coins ===== -->
-<section class="earn-section">
   <div class="earn-card">
-    <div class="earn-title">💰 赚取更多金币助力</div>
-    <button class="earn-btn-primary" onclick="alert('打开广告播放器...')">
-      🎬 看广告赚金币
-    </button>
-    <div class="earn-link" onclick="alert('跳转金币中心...')">
-      前往金币中心赚取更多 →
-    </div>
+    <div class="earn-title">💰 赚取更多星能助力</div>
+    <button class="earn-btn-primary" onclick="alert('打开广告播放器...')">🎬 看广告赚金币</button>
+    <div class="earn-link" onclick="alert('跳转金币中心...')">前往金币中心赚取更多 →</div>
     <div class="earn-hint">💡 每日观看广告可获得金币，为你的TA助力解锁专属痛楼！</div>
   </div>
-</section>
+</div>
+
+
+<!-- ========== 四、其他精彩活动 ========== -->
+<div class="section-block activity-section">
+  <div class="section-header">
+    <span class="section-num">4</span>
+    <span class="section-title">🎉 其他精彩活动</span>
+  </div>
+
+  <div class="banner-slot" onclick="alert('跳转到活动1...')">
+    <div class="banner-slot-info">
+      <div class="banner-slot-title">🎤 Star Power 月度之星投票</div>
+      <div class="banner-slot-desc">每月为你心中的最佳歌手打call，赢取限定周边</div>
+    </div>
+    <span class="banner-slot-arrow">→</span>
+  </div>
+
+  <div class="banner-slot" onclick="alert('跳转到活动2...')">
+    <div class="banner-slot-info">
+      <div class="banner-slot-title">🌟 星光公益计划</div>
+      <div class="banner-slot-desc">参与公益活动，用音乐传递温暖与力量</div>
+    </div>
+    <span class="banner-slot-arrow">→</span>
+  </div>
+</div>
+
 
 <div class="footer-note">
-  STAR POWER 半年度荣誉痛楼解锁 — 交互设计稿 v1.0 · 仅供参考
+  Billboard x QQ音乐 x JOOX STAR POWER 半年度盘点 — 交互设计稿 v2.0 · 仅供参考
 </div>
+
+
+<!-- ===== Share Card Modal ===== -->
+<div class="share-modal-overlay" id="shareModal" onclick="closeShare(event)">
+  <div class="share-card" onclick="event.stopPropagation()">
+    <button class="share-close-modal" onclick="closeShare()">×</button>
+    <div class="share-card-header">
+      <div class="share-card-avatar" id="shareAvatar"></div>
+      <div class="share-card-name" id="shareName"></div>
+      <div class="share-card-award" id="shareAward"></div>
+    </div>
+    <div class="share-card-body">
+      <div class="share-card-stat">
+        <div class="share-card-stat-label">Power 指数</div>
+        <div class="share-card-stat-value" id="sharePower">98.6</div>
+      </div>
+      <div class="share-card-stat">
+        <div class="share-card-stat-label">上榜次数</div>
+        <div class="share-card-stat-value" id="shareRank">12 次</div>
+      </div>
+    </div>
+    <div class="share-card-footer">
+      <button class="share-action-btn share-save-btn" onclick="alert('保存分享卡图片...')">💾 保存分享卡</button>
+      <button class="share-action-btn share-close-btn" onclick="closeShare()">关闭</button>
+    </div>
+  </div>
+</div>
+
 
 <!-- ===== JavaScript ===== -->
 <script>
-// ===== Mock Data =====
-const artists = [
+// ============================================================
+//  DATA
+// ============================================================
+
+/* ---- Honor Awards Data ---- */
+const awardsData = [
+  {
+    icon: "⚡",
+    title: "Power 指数最高歌手 TOP10",
+    badge: "核心榜单",
+    artists: [
+      {name:"周深", song:"大鱼", power:99.2},
+      {name:"邓紫棋", song:"光年之外", power:97.8},
+      {name:"毛不易", song:"消愁", power:95.4},
+      {name:"薛之谦", song:"演员", power:93.1},
+      {name:"单依纯", song:"永不失联的爱", power:91.6},
+      {name:"汪苏泷", song:"万有引力", power:89.3},
+      {name:"刘宇宁", song:"让酒", power:87.5},
+      {name:"张靓颖", song:"画心", power:86.2},
+      {name:"赵雷", song:"成都", power:84.9},
+      {name:"陈奕迅", song:"孤勇者", power:83.7},
+    ]
+  },
+  {
+    icon: "🎵",
+    title: "上榜歌曲最多歌手",
+    badge: "作品力",
+    artists: [
+      {name:"周杰伦", song:"晴天", songs:18},
+      {name:"林俊杰", song:"江南", songs:15},
+      {name:"邓紫棋", song:"光年之外", songs:14},
+      {name:"薛之谦", song:"演员", songs:12},
+      {name:"李荣浩", song:"年少有为", songs:11},
+      {name:"华晨宇", song:"烟火里的尘埃", songs:10},
+      {name:"周深", song:"大鱼", songs:9},
+      {name:"Taylor Swift", song:"Cruel Summer", songs:8},
+      {name:"蔡徐坤", song:"情人", songs:7},
+      {name:"汪苏泷", song:"万有引力", songs:6},
+    ]
+  },
+  {
+    icon: "🔥",
+    title: "入围歌曲最多歌手",
+    badge: "热度值",
+    artists: [
+      {name:"邓紫棋", song:"光年之外", entries:42},
+      {name:"周深", song:"大鱼", entries:38},
+      {name:"毛不易", song:"消愁", entries:35},
+      {name:"薛之谦", song:"演员", entries:31},
+      {name:"单依纯", song:"永不失联的爱", entries:29},
+      {name:"陈奕迅", song:"孤勇者", entries:27},
+      {name:"刘宇宁", song:"让酒", entries:25},
+      {name:"华晨宇", song:"烟火里的尘埃", entries:23},
+      {name:"汪苏泷", song:"万有引力", entries:21},
+      {name:"赵雷", song:"成都", entries:19},
+    ]
+  },
+  {
+    icon: "🌟",
+    title: "最年轻上榜歌手",
+    badge: "新星榜",
+    artists: [
+      {name:"单依纯", song:"永不失联的爱", age:21},
+      {name:"王源", song:"吆喝", age:24},
+      {name:"鹿晗", song:"勋章", age:27},
+      {name:"蔡徐坤", song:"情人", age:28},
+      {name:"刘宇宁", song:"让酒", age:29},
+      {name:"华晨宇", song:"烟火里的尘埃", age:30},
+      {name:"毛不易", song:"消愁", age:30},
+      {name:"周深", song:"大鱼", age:32},
+      {name:"邓紫棋", song:"光年之外", age:33},
+      {name:"Taylor Swift", song:"Cruel Summer", age:35},
+    ]
+  },
+];
+
+/* ---- City Memory Data ---- */
+const cityEvents = {
+  beijing:  { name: "北京·鸟巢大屏",   event: "Star Power 年度盛典 —— 霓虹之夜万人演唱会", date: "2025.03.15" },
+  shanghai:{ name: "上海·外滩大屏",   event: "Star Power 城市巡展首站 —— 外滩灯光秀特别企划", date: "2025.02.08" },
+  guangzhou:{name:"广州·珠江大屏",   event: "Star Power 粤语金曲之夜 —— 珠江畔音乐派对", date: "2025.04.20" },
+  chengdu:{ name: "成都·太古里大屏", event: "Star Power 新声代舞台 —— 成都独立音乐人专场", date: "2025.05.01" },
+  wuhan:   { name: "武汉·江汉路大屏",event: "Star Power 公益音乐会 —— 为爱发声", date: "2025.03.28" },
+  changsha:{ name: "长沙·五一广场大屏",event:"Star Power 青春音乐节 —— 长沙不眠夜", date: "2025.04.12" },
+  hangzhou:{ name: "杭州·西湖大屏",   event: "Star Power 春日音乐漫游 —— 西湖边的不插电现场", date: "2025.03.22" },
+  xian:    { name: "西安·钟楼大屏",   event: "Star Power 古都回响 —— 大唐不夜城音乐秀", date: "2025.05.18" },
+  shenzhen:{ name: "深圳·市民中心大屏",event:"Star Power 科技音乐节 —— 未来之声", date: "2025.06.01" },
+};
+
+let litCities = new Set();
+
+/* ---- Vault Coin Artists ---- */
+const vaultArtists = [
   { id: 1,  name: "周深",       song: "大鱼",           coins: 3150000 },
   { id: 2,  name: "邓紫棋",     song: "光年之外",       coins: 2780000 },
   { id: 3,  name: "毛不易",     song: "消愁",           coins: 2200000 },
@@ -811,53 +1317,136 @@ const AVATAR_COLORS = [
   'linear-gradient(135deg,#06B6D4,#3B82F6)',
 ];
 
-const PER_BUILDING = 1000000; // 每座痛楼100万
-const MAX_TICKS = 4;          // 显示到400万
+const PER_BUILDING = 1000000;
+const MAX_TICKS = 4;
 const DEFAULT_SHOW = 10;
-
 let isExpanded = false;
 
-// ===== Helper Functions =====
-function fmtWan(num) {
-  return (num / 10000).toFixed(num % 10000 === 0 ? 0 : 1);
+// ============================================================
+//  HELPERS
+// ============================================================
+function getAvatarColor(name) {
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) hash = name.charCodeAt(i) + ((hash << 5) - hash);
+  return AVATAR_COLORS[Math.abs(hash) % AVATAR_COLORS.length];
 }
-
+function getInitial(name) { return name.charAt(0).toUpperCase(); }
+function fmtWan(num) { return (num / 10000).toFixed(num % 10000 === 0 ? 0 : 1); }
 function getUnlocked(coins) { return Math.floor(coins / PER_BUILDING); }
 function getNextTarget(coins) { return (getUnlocked(coins) + 1) * PER_BUILDING; }
+function getOverallPct(coins) { const maxShow = MAX_TICKS * PER_BUILDING; return Math.min((coins / maxShow) * 100, 100); }
 function getProgressPct(coins) {
   const unlocked = getUnlocked(coins);
   const start = unlocked * PER_BUILDING;
   const target = getNextTarget(coins);
   return ((coins - start) / (target - start)) * 100;
 }
-function getOverallPct(coins) {
-  const maxShow = MAX_TICKS * PER_BUILDING;
-  return Math.min((coins / maxShow) * 100, 100);
+
+// ============================================================
+//  RENDER: HONOR AWARDS (Section 1)
+// ============================================================
+function renderAwards() {
+  const container = document.getElementById('awardsContainer');
+  let html = '';
+
+  awardsData.forEach((award, ai) => {
+    html += `<div class="award-card">
+      <div class="award-title-row">
+        <span class="award-icon">${award.icon}</span>
+        <span class="award-name">${award.title}</span>
+        <span class="award-badge">${award.badge}</span>
+      </div>
+      <div class="avatar-grid">`;
+
+    award.artists.forEach((artist, i) => {
+      const color = getAvatarColor(artist.name);
+      html += `
+      <div class="avatar-item" data-name="${artist.name}" data-award="${ai}">
+        <div class="artist-avatar-wrap">
+          <div class="artist-avatar-img" style="background:${color}">${getInitial(artist.name)}</div>
+          <div class="avatar-follow" onclick="toggleFollow(event,this)" title="关注"></div>
+          <div class="avatar-share-btn" onclick="openShare('${artist.name}','${color}','${award.icon} ${award.title}')" title="生成分享卡">↗</div>
+        </div>
+        <div class="avatar-label">${artist.name}</div>
+      </div>`;
+    });
+
+    html += `</div></div>`;
+  });
+
+  container.innerHTML = html;
+
+  // Show share buttons on tap for mobile
+  document.querySelectorAll('.avatar-item').forEach(item => {
+    item.addEventListener('click', function(e) {
+      if (e.target.classList.contains('avatar-follow')) return;
+      document.querySelectorAll('.avatar-item').forEach(el => el !== this && el.classList.remove('active'));
+      this.classList.toggle('active');
+      this.querySelector('.avatar-share-btn').classList.add('show');
+    });
+  });
 }
 
-function getAvatarColor(name) {
-  let hash = 0;
-  for (let i = 0; i < name.length; i++) hash = name.charCodeAt(i) + ((hash << 5) - hash);
-  return AVATAR_COLORS[Math.abs(hash) % AVATAR_COLORS.length];
+function toggleFollow(e, el) {
+  e.stopPropagation();
+  el.classList.toggle('followed');
 }
 
-function getInitial(name) { return name.charAt(0).toUpperCase(); }
+// ============================================================
+//  SHARE CARD (Section 1)
+// ============================================================
+function openShare(name, color, awardText) {
+  const modal = document.getElementById('shareModal');
+  document.getElementById('shareAvatar').style.background = color;
+  document.getElementById('shareAvatar').textContent = getInitial(name);
+  document.getElementById('shareName').textContent = name;
+  document.getElementById('shareAward').textContent = awardText;
+  document.getElementById('sharePower').textContent = (Math.random() * 20 + 80).toFixed(1);
+  document.getElementById('shareRank').textContent = Math.floor(Math.random() * 20 + 3) + ' 次';
+  modal.classList.add('show');
+}
+function closeShare(e) {
+  if (e && e.target.id !== 'shareModal') return;
+  document.getElementById('shareModal').classList.remove('show');
+}
 
-// ===== Render Progress Bar Ticks =====
+// ============================================================
+//  CITY MEMORY (Section 2)
+// ============================================================
+function lightCity(markerEl) {
+  const cityKey = markerEl.dataset.city;
+  if (!cityKey || !cityEvents[cityKey]) return;
+
+  markerEl.classList.add('lit');
+  litCities.add(cityKey);
+
+  document.getElementById('litCount').textContent = litCities.size;
+
+  // Show popup
+  const popup = document.getElementById('cityPopup');
+  const ev = cityEvents[cityKey];
+  document.getElementById('popupCityName').textContent = ev.name;
+  document.getElementById('popupEvent').textContent = ev.event;
+  document.getElementById('popupEventDate').textContent = '📅 ' + ev.date;
+  popup.classList.add('show');
+
+  setTimeout(() => popup.classList.remove('show'), 4000);
+}
+
+// ============================================================
+//  VAULT PROGRESS BAR TICKS
+// ============================================================
 function renderTicks(coins) {
   const unlocked = getUnlocked(coins);
-  const nextT = getNextTarget(coins);
   let html = '<div class="tick-container">';
   for (let i = 1; i <= MAX_TICKS; i++) {
     const tickVal = i * PER_BUILDING;
     const pct = (i / MAX_TICKS) * 100;
     const passed = coins >= tickVal;
-    const isCurrent = !passed && coins >= (i - 1) * PER_BUILDING && i <= unlocked + 1;
-    
+    const isCurrent = !passed && i <= unlocked + 1;
     let cls = 'tick';
     if (passed) cls += ' passed';
-    else if (isCurrent || (i === unlocked + 1 && coins < nextT)) cls += ' current';
-
+    else if (isCurrent || (i === unlocked + 1)) cls += ' current';
     html += `<div class="${cls}" style="left:${pct}%">`;
     if (passed) html += `<span class="tick-check">✓</span>`;
     html += `<span class="tick-label">${i}00万</span></div>`;
@@ -866,36 +1455,51 @@ function renderTicks(coins) {
   return html;
 }
 
-// ===== Render Single Card =====
-function renderCard(artist, idx) {
+// ============================================================
+//  RENDER: VAULT ARTISTS (Section 3)
+// ============================================================
+function renderVaultArtists() {
+  const container = document.getElementById('artistListContainer');
+  const expandBtn = document.getElementById('expandBtn');
+
+  const visible = vaultArtists.slice(0, DEFAULT_SHOW);
+  const hidden = vaultArtists.slice(DEFAULT_SHOW);
+
+  let html = visible.map((a, i) => renderVaultCard(a, i)).join('');
+  if (hidden.length > 0) {
+    html += `<div class="hidden-cards" id="hiddenCards">${hidden.map((a, i) => renderVaultCard(a, i + DEFAULT_SHOW)).join('')}</div>`;
+  }
+
+  container.innerHTML = html;
+
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      document.querySelectorAll('.progress-fill').forEach(el => {
+        el.style.width = el.dataset.width;
+      });
+    }, 300);
+  });
+
+  expandBtn.style.display = hidden.length > 0 ? 'flex' : 'none';
+}
+
+function renderVaultCard(artist, idx) {
   const coins = artist.coins;
   const unlocked = getUnlocked(coins);
   const nextT = getNextTarget(coins);
   const remaining = nextT - coins;
   const pct = getOverallPct(coins);
-  const segPct = getProgressPct(coins);
 
-  // Build gradient segments
   let gradParts = [];
-  if (unlocked > 0) {
-    const unlockedPct = (unlocked / MAX_TICKS) * 100;
-    gradParts.push(`#C850FF ${unlockedPct}%`);
-  }
-  const currentStart = (unlocked / MAX_TICKS) * 100;
-  const currentEnd = pct;
-  gradParts.push(`#FF10F0 ${currentEnd}%`);
+  if (unlocked > 0) gradParts.push(`#C850FF ${(unlocked / MAX_TICKS) * 100}%`);
+  gradParts.push(`#FF10F0 ${pct}%`);
   const gradient = gradParts.join(', ');
 
-  const rankCls = idx === 0 ? 'rank-1' : idx === 1 ? 'rank-2' : idx === 2 ? 'rank-3' : 'rank-default';
-
-  const statusText = unlocked > 0
-    ? `已解锁${unlocked}座 🏆`
-    : `还差${fmtWan(remaining)}万解锁第1座`;
-
+  const statusText = unlocked > 0 ? `已解锁${unlocked}座 🏆` : `还差${fmtWan(remaining)}万`;
   const statusClass = unlocked > 0 ? '' : 'locked-color';
 
   return `
-  <div class="artist-card" data-name="${artist.name}">
+  <div class="artist-card">
     <div class="artist-row">
       <div class="avatar" style="background:${getAvatarColor(artist.name)}">${getInitial(artist.name)}</div>
       <div class="artist-info">
@@ -919,85 +1523,30 @@ function renderCard(artist, idx) {
   </div>`;
 }
 
-// ===== Render All Artists =====
-function renderArtists() {
-  const container = document.getElementById('artistListContainer');
-  const expandBtn = document.getElementById('expandBtn');
-
-  const filtered = artists;
-
-  document.getElementById('artistCount').textContent = `共 ${filtered.length} 位`;
-
-  const visible = filtered.slice(0, DEFAULT_SHOW);
-  const hidden = filtered.slice(DEFAULT_SHOW);
-
-  let html = visible.map((a, i) => renderCard(a, i)).join('');
-  
-  if (hidden.length > 0) {
-    html += `<div class="hidden-cards" id="hiddenCards">${hidden.map((a, i) => renderCard(a, i + DEFAULT_SHOW)).join('')}</div>`;
-  }
-
-  container.innerHTML = html;
-
-  // Animate progress bars
-  requestAnimationFrame(() => {
-    setTimeout(() => {
-      document.querySelectorAll('.progress-fill').forEach(el => {
-        el.style.width = el.dataset.width;
-      });
-    }, 300);
-  });
-}
-
-// ===== Toggle Expand =====
 function toggleExpand() {
   isExpanded = !isExpanded;
   const cards = document.getElementById('hiddenCards');
   const btn = document.getElementById('expandBtn');
-
   if (isExpanded) {
     cards.classList.add('show');
     btn.classList.add('expanded');
     btn.querySelector('span').textContent = '收起';
+    setTimeout(() => {
+      cards.querySelectorAll('.progress-fill').forEach(el => { el.style.width = el.dataset.width; });
+    }, 100);
   } else {
     cards.classList.remove('show');
     btn.classList.remove('expanded');
     btn.querySelector('span').textContent = '展开更多';
   }
-
-  // Animate newly visible progress bars
-  if (isExpanded) {
-    setTimeout(() => {
-      cards.querySelectorAll('.progress-fill').forEach(el => {
-        el.style.width = el.dataset.width;
-      });
-    }, 100);
-  }
 }
 
-// ===== Count-up Animation for Total Coins =====
-function animateTotalCoins() {
-  const target = 26850000; // mock total
-  const el = document.getElementById('totalCoinsNum');
-  const duration = 2000;
-  const startTime = performance.now();
-
-  function update(now) {
-    const elapsed = now - startTime;
-    const progress = Math.min(elapsed / duration, 1);
-    // Ease out cubic
-    const eased = 1 - Math.pow(1 - progress, 3);
-    const current = Math.floor(target * eased);
-    el.textContent = current.toLocaleString();
-    if (progress < 1) requestAnimationFrame(update);
-  }
-  requestAnimationFrame(update);
-}
-
-// ===== Init =====
+// ============================================================
+//  INIT
+// ============================================================
 document.addEventListener('DOMContentLoaded', () => {
-  renderArtists();
-  animateTotalCoins();
+  renderAwards();
+  renderVaultArtists();
 });
 </script>
 

@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STAR POWER 半年度荣誉痛楼解锁 - 交互稿</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  /* ===== CSS Variables (Star Power Official Neon Palette) ===== */
+  :root {
+    --brand-yellow: #F5E050;
+    --brand-yellow-bright: #FFE135;
+    --bg-black: #000000;
+    --magenta: #FF10F0;
+    --magenta-deep: #FF1493;
+    --pink: #FF69B4;
+    --purple: #C850FF;
+    --orange-warm: #FF8C42;
+    --green-fluo: #00FF88;
+    --green-cyan: #00E676;
+    --white: #FFFFFF;
+    --dim: #888888;
+    --card-bg: rgba(255,255,255,0.04);
+    --card-border: rgba(255,16,240,0.15);
+    --track-bg: #1a1a1a;
+    --progress-unlocked: #C850FF;
+    --progress-active: #FF10F0;
+    --progress-locked: #2a2a2a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'PingFang SC', -apple-system, 'Helvetica Neue', sans-serif;
+    background: var(--bg-black);
+    color: var(--white);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* ===== Noise Texture Overlay ===== */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    z-index: 0;
+    pointer-events: none;
+    opacity: .045;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+  }
+
+  /* ===== SVG Noise Filter (for subtle grain) ===== */
+  .noise-filter { display: none; }
+
+  /* ===== Brand Bar (Top Yellow) ===== */
+  .brand-bar {
+    background: linear-gradient(90deg, #F5E050 0%, #FFE135 50%, #F5E050 100%);
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    position: relative;
+    z-index: 10;
+  }
+  .brand-bar span {
+    font-weight: 800;
+    font-size: 13px;
+    color: #000;
+    letter-spacing: 0.5px;
+  }
+  .brand-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #000;
+    opacity: .5;
+  }
+
+  /* ===== Hero Section ===== */
+  .hero-section {
+    position: relative;
+    padding: 40px 20px 36px;
+    text-align: center;
+    overflow: hidden;
+    z-index: 1;
+  }
+  .hero-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 120px;
+    background: linear-gradient(to top, var(--bg-black), transparent);
+    pointer-events: none;
+  }
+
+  /* Billboard tag */
+  .billboard-tag {
+    display: inline-block;
+    background: var(--magenta);
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 6px 18px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+    box-shadow: 0 0 20px rgba(255,16,240,0.4);
+    animation: tagPulse 2s ease-in-out infinite;
+  }
+  @keyframes tagPulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(255,16,240,0.4); }
+    50% { box-shadow: 0 0 35px rgba(255,16,240,0.7); }
+  }
+
+  /* STAR POWER Title */
+  .star-title {
+    font-size: clamp(52px, 14vw, 96px);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -2px;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, var(--pink) 0%, var(--purple) 40%, var(--magenta) 70%, var(--orange-warm) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 30px rgba(255,105,180,0.5)) drop-shadow(0 0 60px rgba(200,80,255,0.3));
+    animation: titleShimmer 3s ease-in-out infinite;
+    background-size: 200% 200%;
+  }
+  @keyframes titleShimmer {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Subtitle */
+  .subtitle-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .subtitle-line {
+    width: 40px; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--magenta));
+  }
+  .subtitle-line-right {
+    background: linear-gradient(90deg, var(--magenta), transparent);
+  }
+  .subtitle {
+    color: var(--magenta-deep);
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 2px;
+  }
+
+  /* Description */
+  .desc-text {
+    color: var(--green-fluo);
+    font-size: 13px;
+    margin-top: 14px;
+    opacity: .9;
+    max-width: 340px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+
+  /* Time & Countdown Row */
+  .time-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 22px;
+    flex-wrap: wrap;
+  }
+  .time-pill {
+    border: 1px solid var(--brand-yellow);
+    color: var(--brand-yellow);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 14px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+  }
+  .countdown {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .cd-block {
+    background: rgba(255,225,80,0.12);
+    border: 1px solid rgba(255,225,80,0.3);
+    color: var(--brand-yellow);
+    font-weight: 700;
+    font-size: 15px;
+    min-width: 32px;
+    padding: 4px 6px;
+    border-radius: 4px;
+    text-align: center;
+  }
+  .cd-label { font-size: 11px; color: var(--dim); }
+
+  /* Total coins display */
+  .total-coins-area {
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    display: inline-block;
+  }
+  .total-label { font-size: 11px; color: var(--dim); margin-bottom: 4px; letter-spacing: 1px; }
+  .total-num {
+    font-size: 32px;
+    font-weight: 900;
+    background: linear-gradient(90deg, var(--green-fluo), var(--magenta));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .total-unit { font-size: 14px; color: var(--green-fluo); font-weight: 600; margin-left: 4px; }
+
+  /* ===== Search Bar (Sticky) ===== */
+  .search-wrapper {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 12px 16px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: rgba(0,0,0,0.75);
+    border-bottom: 1px solid rgba(255,16,240,0.08);
+  }
+  .search-box {
+    display: flex;
+    align-items: center;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 24px;
+    padding: 10px 16px;
+    transition: all 0.3s ease;
+  }
+  .search-box:focus-within {
+    border-color: var(--magenta);
+    box-shadow: 0 0 16px rgba(255,16,240,0.3), inset 0 0 12px rgba(255,16,240,0.05);
+  }
+  .search-icon {
+    width: 18px; height: 18px;
+    margin-right: 10px;
+    color: var(--green-fluo);
+    flex-shrink: 0;
+  }
+  .search-input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--white);
+    font-size: 14px;
+    width: 100%;
+    font-family: inherit;
+  }
+  .search-input::placeholder { color: #555; }
+
+  /* ===== Artist List Section ===== */
+  .artist-section {
+    position: relative;
+    z-index: 1;
+    padding: 0 16px 30px;
+  }
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 4px 14px;
+  }
+  .section-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--magenta);
+    letter-spacing: 1px;
+  }
+  .section-count {
+    font-size: 12px;
+    color: var(--dim);
+  }
+
+  /* Artist Card */
+  .artist-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    transition: all 0.3s ease;
+    animation: cardFadeIn 0.5s ease backwards;
+  }
+  .artist-card:hover {
+    border-color: rgba(255,16,240,0.35);
+    background: rgba(255,255,255,0.06);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 24px rgba(255,16,240,0.08);
+  }
+  @keyframes cardFadeIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .artist-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  /* Rank Badge */
+  .rank-badge {
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+  .rank-1 { background: linear-gradient(135deg, #FFE135, #F5A623); color: #000; }
+  .rank-2 { background: linear-gradient(135deg, #E8E8E8, #B0B0B0); color: #000; }
+  .rank-3 { background: linear-gradient(135deg, var(--green-fluo), #00B86B); color: #000; }
+  .rank-default { background: rgba(255,255,255,0.08); color: var(--dim); }
+
+  /* Avatar */
+  .avatar {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+    color: #fff;
+    position: relative;
+  }
+  .avatar::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    background: linear-gradient(var(--magenta), var(--purple)) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: .5;
+  }
+
+  .artist-info { flex: 1; min-width: 0; }
+  .artist-name {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--white);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .artist-coins {
+    font-size: 13px;
+    color: var(--magenta);
+    font-weight: 600;
+    margin-top: 2px;
+  }
+
+  /* Unlocked badge */
+  .unlocked-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    background: linear-gradient(135deg, rgba(0,230,118,0.15), rgba(245,224,80,0.15));
+    border: 1px solid rgba(0,230,118,0.3);
+    color: var(--green-fluo);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-top: 4px;
+  }
+
+  /* Invest Button */
+  .invest-btn {
+    background: linear-gradient(135deg, var(--magenta), var(--pink));
+    color: white;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 12px rgba(255,16,240,0.3);
+    white-space: nowrap;
+  }
+  .invest-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 24px rgba(255,16,240,0.5);
+  }
+  .invest-btn:active { transform: scale(0.95); }
+
+  /* ===== Multi-Level Progress Bar ===== */
+  .progress-area { margin-top: 12px; }
+  .progress-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .progress-text-left {
+    font-size: 12px;
+    color: var(--white);
+    font-weight: 600;
+  }
+  .progress-text-left span { color: var(--magenta); }
+  .progress-text-right {
+    font-size: 11px;
+    color: var(--green-fluo);
+    font-weight: 600;
+  }
+  .progress-text-right.locked-color { color: var(--dim); }
+
+  .progress-track {
+    position: relative;
+    height: 22px;
+    background: var(--track-bg);
+    border-radius: 11px;
+    overflow: visible;
+  }
+
+  /* Progress Fill */
+  .progress-fill {
+    position: absolute;
+    left: 0; top: 0;
+    height: 100%;
+    border-radius: 11px;
+    transition: width 1.8s cubic-bezier(0.22, 1, 0.36, 1);
+    display: flex;
+    align-items: center;
+  }
+
+  /* Tick marks on progress bar */
+  .tick-container {
+    position: absolute;
+    left: 0; top: 0;
+    right: 0; bottom: 0;
+    display: flex;
+    align-items: center;
+    padding: 0 2px;
+    pointer-events: none;
+  }
+  .tick {
+    position: absolute;
+    width: 2px;
+    height: 14px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 1px;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .tick-label {
+    position: absolute;
+    top: -18px;
+    font-size: 9px;
+    color: rgba(255,255,255,0.35);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .tick.passed .tick-label { color: var(--progress-unlocked); }
+  .tick.passed { background: var(--progress-unlocked); opacity: .8; }
+  .tick.current { background: var(--magenta); height: 18px; box-shadow: 0 0 8px rgba(255,16,240,0.6); animation: tickPulse 1.5s ease-in-out infinite; }
+  .tick-check {
+    position: absolute;
+    top: -14px;
+    font-size: 9px;
+    color: var(--green-fluo);
+    font-weight: 900;
+  }
+
+  @keyframes tickPulse {
+    0%, 100% { box-shadow: 0 0 8px rgba(255,16,240,0.6); }
+    50% { box-shadow: 0 0 16px rgba(255,16,240,0.9); }
+  }
+
+  /* Expand/Collapse Button */
+  .expand-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    padding: 14px;
+    background: transparent;
+    border: 1px dashed rgba(255,16,240,0.25);
+    border-radius: 12px;
+    color: var(--magenta);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 8px;
+  }
+  .expand-btn:hover {
+    border-color: var(--magenta);
+    background: rgba(255,16,240,0.04);
+  }
+  .expand-icon { transition: transform 0.3s ease; }
+  .expand-btn.expanded .expand-icon { transform: rotate(180deg); }
+
+  /* Hidden cards container */
+  .hidden-cards {
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    max-height: 0;
+  }
+  .hidden-cards.show { max-height: 5000px; }
+
+  /* ===== Earn Coins Section ===== */
+  .earn-section {
+    position: relative;
+    z-index: 1;
+    padding: 24px 16px 50px;
+    margin-top: 10px;
+  }
+  .earn-card {
+    background: linear-gradient(135deg, rgba(255,16,240,0.06), rgba(200,80,255,0.04));
+    border: 1px solid rgba(255,16,240,0.2);
+    border-top: 3px solid var(--magenta);
+    border-radius: 16px;
+    padding: 28px 20px;
+    text-align: center;
+  }
+  .earn-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 20px;
+  }
+  .earn-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, var(--magenta), var(--pink), var(--orange-warm));
+    background-size: 200% 200%;
+    color: white;
+    border: none;
+    padding: 14px 36px;
+    border-radius: 28px;
+    font-weight: 800;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 24px rgba(255,16,240,0.4);
+    animation: earnPulse 2s ease-in-out infinite, btnGradientShift 3s ease infinite;
+    letter-spacing: 1px;
+  }
+  @keyframes earnPulse {
+    0%, 100% { box-shadow: 0 4px 24px rgba(255,16,240,0.4); }
+    50% { box-shadow: 0 4px 40px rgba(255,16,240,0.65), 0 0 60px rgba(255,16,240,0.2); }
+  }
+  @keyframes btnGradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  .earn-btn-primary:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 8px 36px rgba(255,16,240,0.55);
+  }
+  .earn-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 14px;
+    color: var(--green-fluo);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .earn-link:hover { opacity: .8; }
+  .earn-hint {
+    font-size: 11px;
+    color: var(--dim);
+    margin-top: 12px;
+    line-height: 1.5;
+  }
+
+  /* ===== Staggered Animation Delays ===== */
+  .artist-card:nth-child(1) { animation-delay: 0.05s; }
+  .artist-card:nth-child(2) { animation-delay: 0.1s; }
+  .artist-card:nth-child(3) { animation-delay: 0.15s; }
+  .artist-card:nth-child(4) { animation-delay: 0.2s; }
+  .artist-card:nth-child(5) { animation-delay: 0.25s; }
+  .artist-card:nth-child(6) { animation-delay: 0.3s; }
+  .artist-card:nth-child(7) { animation-delay: 0.35s; }
+  .artist-card:nth-child(8) { animation-delay: 0.4s; }
+  .artist-card:nth-child(9) { animation-delay: 0.45s; }
+  .artist-card:nth-child(10) { animation-delay: 0.5s; }
+
+  /* ===== No Results State ===== */
+  .no-results {
+    text-align: center;
+    padding: 40px 0;
+    color: var(--dim);
+    font-size: 14px;
+  }
+
+  /* ===== Footer note ===== */
+  .footer-note {
+    text-align: center;
+    padding: 20px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.15);
+    border-top: 1px solid rgba(255,255,255,0.04);
+  }
+</style>
+</head>
+<body>
+
+<!-- SVG Filters -->
+<svg class="noise-filter"><defs><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/></filter></defs></svg>
+
+<!-- ===== Block 1: Brand Bar ===== -->
+<div class="brand-bar">
+  <span>📊 billboard</span>
+  <div class="brand-dot"></div>
+  <span>🎵 QQ音乐</span>
+  <div class="brand-dot"></div>
+  <span>🎧 JOOX</span>
+</div>
+
+<!-- ===== Block 2: Hero / 头图 ===== -->
+<section class="hero-section" id="hero">
+  <div class="billboard-tag">Billboard China × STAR POWER</div>
+
+  <h1 class="star-title">STAR<br>POWER</h1>
+
+  <div class="subtitle-wrap">
+    <div class="subtitle-line"></div>
+    <span class="subtitle">半年度荣誉痛楼解锁</span>
+    <div class="subtitle-line subtitle-line-right"></div>
+  </div>
+
+  <p class="desc-text">
+    Billboard 公告牌联合 QQ音乐、JOOX 重磅开启「Star Power」半年度评选，粉丝为 TA 助力投币，每累计 <b style="color:var(--brand-yellow)">100万金币</b> 即可解锁一座荣誉痛楼！
+  </p>
+
+  <div class="time-row">
+    <div class="time-pill">⏰ 2025.06.10 — 06.30</div>
+    <div class="countdown">
+      <span class="cd-label">距结束</span>
+      <span class="cd-block">21</span>
+      <span class="cd-label">天</span>
+      <span class="cd-block">05</span>
+      <span class="cd-label">时</span>
+      <span class="cd-block">42</span>
+      <span class="cd-label">分</span>
+    </div>
+  </div>
+
+  <div class="total-coins-area">
+    <div class="total-label">全站累计助力金币</div>
+    <div>
+      <span class="total-num" id="totalCoinsNum">0</span>
+      <span class="total-unit">枚</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Block 3: Search Bar ===== -->
+<div class="search-wrapper">
+  <div class="search-box">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+    </svg>
+    <input type="text" class="search-input" id="searchInput" placeholder="搜索艺人..." autocomplete="off">
+  </div>
+</div>
+
+<!-- ===== Block 4: Artist List ===== -->
+<section class="artist-section" id="artistSection">
+  <div class="section-header">
+    <span class="section-title">🎤 入围艺人</span>
+    <span class="section-count" id="artistCount">共 18 位</span>
+  </div>
+
+  <div id="artistListContainer">
+    <!-- Cards rendered by JS -->
+  </div>
+
+  <button class="expand-btn" id="expandBtn" onclick="toggleExpand()">
+    <span>展开更多</span>
+    <svg class="expand-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+
+  <div class="no-results" id="noResults" style="display:none;">
+    😅 没有找到匹配的艺人
+  </div>
+</section>
+
+<!-- ===== Block 5: Earn Coins ===== -->
+<section class="earn-section">
+  <div class="earn-card">
+    <div class="earn-title">💰 赚取更多金币助力</div>
+    <button class="earn-btn-primary" onclick="alert('打开广告播放器...')">
+      🎬 看广告赚金币
+    </button>
+    <div class="earn-link" onclick="alert('跳转金币中心...')">
+      前往金币中心赚取更多 →
+    </div>
+    <div class="earn-hint">💡 每日观看广告可获得金币，为你的TA助力解锁专属痛楼！</div>
+  </div>
+</section>
+
+<div class="footer-note">
+  STAR POWER 半年度荣誉痛楼解锁 — 交互设计稿 v1.0 · 仅供参考
+</div>
+
+<!-- ===== JavaScript ===== -->
+<script>
+// ===== Mock Data =====
+const artists = [
+  { id: 1,  name: "周深",       coins: 3150000 },
+  { id: 2,  name: "邓紫棋",     coins: 2780000 },
+  { id: 3,  name: "毛不易",     coins: 2200000 },
+  { id: 4,  name: "薛之谦",     coins: 1850000 },
+  { id: 5,  name: "单依纯",     coins: 1520000 },
+  { id: 6,  name: "汪苏泷",     coins: 1180000 },
+  { id: 7,  name: "刘宇宁",     coins: 920000 },
+  { id: 8,  name: "张靓颖",     coins: 850000 },
+  { id: 9,  name: "赵雷",       coins: 680000 },
+  { id: 10, name: "陈奕迅",     coins: 520000 },
+  // 折叠区
+  { id: 11, name: "李荣浩",     coins: 480000 },
+  { id: 12, name: "华晨宇",     coins: 420000 },
+  { id: 13, name: "Taylor Swift",coins: 380000 },
+  { id: 14, name: "周杰伦",     coins: 350000 },
+  { id: 15, name: "蔡徐坤",     coins: 290000 },
+  { id: 16, name: "王源",       coins: 210000 },
+  { id: 17, name: "鹿晗",       coins: 160000 },
+  { id: 18, name: "林俊杰",     coins: 120000 },
+];
+
+const AVATAR_COLORS = [
+  'linear-gradient(135deg,#FF69B4,#C850FF)',
+  'linear-gradient(135deg,#C850FF,#6366F1)',
+  'linear-gradient(135deg,#00E676,#00B86B)',
+  'linear-gradient(135deg,#FF8C42,#FFD700)',
+  'linear-gradient(135deg,#FF10F0,#FF69B4)',
+  'linear-gradient(135deg,#6366F1,#C850FF)',
+  'linear-gradient(135deg,#F59E0B,#EF4444)',
+  'linear-gradient(135deg,#06B6D4,#3B82F6)',
+];
+
+const PER_BUILDING = 1000000; // 每座痛楼100万
+const MAX_TICKS = 4;          // 显示到400万
+const DEFAULT_SHOW = 10;
+
+let isExpanded = false;
+
+// ===== Helper Functions =====
+function fmtWan(num) {
+  return (num / 10000).toFixed(num % 10000 === 0 ? 0 : 1);
+}
+
+function getUnlocked(coins) { return Math.floor(coins / PER_BUILDING); }
+function getNextTarget(coins) { return (getUnlocked(coins) + 1) * PER_BUILDING; }
+function getProgressPct(coins) {
+  const unlocked = getUnlocked(coins);
+  const start = unlocked * PER_BUILDING;
+  const target = getNextTarget(coins);
+  return ((coins - start) / (target - start)) * 100;
+}
+function getOverallPct(coins) {
+  const maxShow = MAX_TICKS * PER_BUILDING;
+  return Math.min((coins / maxShow) * 100, 100);
+}
+
+function getAvatarColor(name) {
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) hash = name.charCodeAt(i) + ((hash << 5) - hash);
+  return AVATAR_COLORS[Math.abs(hash) % AVATAR_COLORS.length];
+}
+
+function getInitial(name) { return name.charAt(0).toUpperCase(); }
+
+// ===== Render Progress Bar Ticks =====
+function renderTicks(coins) {
+  const unlocked = getUnlocked(coins);
+  const nextT = getNextTarget(coins);
+  let html = '<div class="tick-container">';
+  for (let i = 1; i <= MAX_TICKS; i++) {
+    const tickVal = i * PER_BUILDING;
+    const pct = (i / MAX_TICKS) * 100;
+    const passed = coins >= tickVal;
+    const isCurrent = !passed && coins >= (i - 1) * PER_BUILDING && i <= unlocked + 1;
+    
+    let cls = 'tick';
+    if (passed) cls += ' passed';
+    else if (isCurrent || (i === unlocked + 1 && coins < nextT)) cls += ' current';
+
+    html += `<div class="${cls}" style="left:${pct}%">`;
+    if (passed) html += `<span class="tick-check">✓</span>`;
+    html += `<span class="tick-label">${i}00万</span></div>`;
+  }
+  html += '</div>';
+  return html;
+}
+
+// ===== Render Single Card =====
+function renderCard(artist, idx) {
+  const coins = artist.coins;
+  const unlocked = getUnlocked(coins);
+  const nextT = getNextTarget(coins);
+  const remaining = nextT - coins;
+  const pct = getOverallPct(coins);
+  const segPct = getProgressPct(coins);
+
+  // Build gradient segments
+  let gradParts = [];
+  if (unlocked > 0) {
+    const unlockedPct = (unlocked / MAX_TICKS) * 100;
+    gradParts.push(`#C850FF ${unlockedPct}%`);
+  }
+  const currentStart = (unlocked / MAX_TICKS) * 100;
+  const currentEnd = pct;
+  gradParts.push(`#FF10F0 ${currentEnd}%`);
+  const gradient = gradParts.join(', ');
+
+  const rankCls = idx === 0 ? 'rank-1' : idx === 1 ? 'rank-2' : idx === 2 ? 'rank-3' : 'rank-default';
+
+  const statusText = unlocked > 0
+    ? `已解锁${unlocked}座 🏆`
+    : `还差${fmtWan(remaining)}万解锁第1座`;
+
+  const statusClass = unlocked > 0 ? '' : 'locked-color';
+
+  return `
+  <div class="artist-card" data-name="${artist.name}">
+    <div class="artist-row">
+      <div class="rank-badge ${rankCls}">${idx + 1}</div>
+      <div class="avatar" style="background:${getAvatarColor(artist.name)}">${getInitial(artist.name)}</div>
+      <div class="artist-info">
+        <div class="artist-name">${artist.name}</div>
+        <div class="artist-coins">${fmtWan(coins)}万 金币</div>
+        ${unlocked > 0 ? `<div class="unlocked-badge">🏆 已解锁 ${unlocked} 座痛楼</div>` : ''}
+      </div>
+      <button class="invest-btn" onclick="alert('为 ${artist.name} 投币！')">+ 投币</button>
+    </div>
+    <div class="progress-area">
+      <div class="progress-info">
+        <span class="progress-text-left"><span>${fmtWan(coins)}万</span> / ${fmtWan(nextT)}万</span>
+        <span class="progress-text-right ${statusClass}">${statusText}</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" style="width:0%;background:linear-gradient(90deg,${gradient})" data-width="${pct}%"></div>
+        ${renderTicks(coins)}
+      </div>
+    </div>
+  </div>`;
+}
+
+// ===== Render All Artists =====
+function renderArtists(filterText = '') {
+  const container = document.getElementById('artistListContainer');
+  const expandBtn = document.getElementById('expandBtn');
+  const noResults = document.getElementById('noResults');
+
+  const filtered = artists.filter(a => a.name.toLowerCase().includes(filterText.toLowerCase()));
+
+  if (filtered.length === 0) {
+    container.innerHTML = '';
+    expandBtn.style.display = 'none';
+    noResults.style.display = 'block';
+    document.getElementById('artistCount').textContent = '共 0 位';
+    return;
+  }
+
+  noResults.style.display = 'none';
+  expandBtn.style.display = filtered.length > DEFAULT_SHOW ? 'flex' : 'none';
+  document.getElementById('artistCount').textContent = `共 ${filtered.length} 位`;
+
+  const visible = filtered.slice(0, DEFAULT_SHOW);
+  const hidden = filtered.slice(DEFAULT_SHOW);
+
+  let html = visible.map((a, i) => renderCard(a, i)).join('');
+  
+  if (hidden.length > 0) {
+    html += `<div class="hidden-cards" id="hiddenCards">${hidden.map((a, i) => renderCard(a, i + DEFAULT_SHOW)).join('')}</div>`;
+  }
+
+  container.innerHTML = html;
+
+  // Animate progress bars
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      document.querySelectorAll('.progress-fill').forEach(el => {
+        el.style.width = el.dataset.width;
+      });
+    }, 300);
+  });
+}
+
+// ===== Toggle Expand =====
+function toggleExpand() {
+  isExpanded = !isExpanded;
+  const cards = document.getElementById('hiddenCards');
+  const btn = document.getElementById('expandBtn');
+
+  if (isExpanded) {
+    cards.classList.add('show');
+    btn.classList.add('expanded');
+    btn.querySelector('span').textContent = '收起';
+  } else {
+    cards.classList.remove('show');
+    btn.classList.remove('expanded');
+    btn.querySelector('span').textContent = '展开更多';
+  }
+
+  // Animate newly visible progress bars
+  if (isExpanded) {
+    setTimeout(() => {
+      cards.querySelectorAll('.progress-fill').forEach(el => {
+        el.style.width = el.dataset.width;
+      });
+    }, 100);
+  }
+}
+
+// ===== Search =====
+document.getElementById('searchInput').addEventListener('input', function(e) {
+  const val = e.target.value.trim();
+  // Reset expanded state when searching
+  isExpanded = false;
+  renderArtists(val);
+});
+
+// ===== Count-up Animation for Total Coins =====
+function animateTotalCoins() {
+  const target = 26850000; // mock total
+  const el = document.getElementById('totalCoinsNum');
+  const duration = 2000;
+  const startTime = performance.now();
+
+  function update(now) {
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    // Ease out cubic
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const current = Math.floor(target * eased);
+    el.textContent = current.toLocaleString();
+    if (progress < 1) requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+}
+
+// ===== Init =====
+document.addEventListener('DOMContentLoaded', () => {
+  renderArtists();
+  animateTotalCoins();
+});
+</script>
+
+</body>
+</html>

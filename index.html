@@ -338,22 +338,6 @@
     gap: 10px;
   }
 
-  /* Rank Badge */
-  .rank-badge {
-    width: 28px; height: 28px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
-    font-size: 13px;
-    flex-shrink: 0;
-  }
-  .rank-1 { background: linear-gradient(135deg, #FFE135, #F5A623); color: #000; }
-  .rank-2 { background: linear-gradient(135deg, #E8E8E8, #B0B0B0); color: #000; }
-  .rank-3 { background: linear-gradient(135deg, var(--green-fluo), #00B86B); color: #000; }
-  .rank-default { background: rgba(255,255,255,0.08); color: var(--dim); }
-
   /* Avatar */
   .avatar {
     width: 44px; height: 44px;
@@ -382,6 +366,16 @@
   }
 
   .artist-info { flex: 1; min-width: 0; }
+  .artist-song {
+    font-size: 11px;
+    color: var(--dim);
+    font-weight: 400;
+    margin-bottom: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    letter-spacing: 0.3px;
+  }
   .artist-name {
     font-weight: 700;
     font-size: 15px;
@@ -797,25 +791,25 @@
 <script>
 // ===== Mock Data =====
 const artists = [
-  { id: 1,  name: "周深",       coins: 3150000 },
-  { id: 2,  name: "邓紫棋",     coins: 2780000 },
-  { id: 3,  name: "毛不易",     coins: 2200000 },
-  { id: 4,  name: "薛之谦",     coins: 1850000 },
-  { id: 5,  name: "单依纯",     coins: 1520000 },
-  { id: 6,  name: "汪苏泷",     coins: 1180000 },
-  { id: 7,  name: "刘宇宁",     coins: 920000 },
-  { id: 8,  name: "张靓颖",     coins: 850000 },
-  { id: 9,  name: "赵雷",       coins: 680000 },
-  { id: 10, name: "陈奕迅",     coins: 520000 },
+  { id: 1,  name: "周深",       song: "大鱼",           coins: 3150000 },
+  { id: 2,  name: "邓紫棋",     song: "光年之外",       coins: 2780000 },
+  { id: 3,  name: "毛不易",     song: "消愁",           coins: 2200000 },
+  { id: 4,  name: "薛之谦",     song: "演员",           coins: 1850000 },
+  { id: 5,  name: "单依纯",     song: "永不失联的爱",   coins: 1520000 },
+  { id: 6,  name: "汪苏泷",     song: "万有引力",       coins: 1180000 },
+  { id: 7,  name: "刘宇宁",     song: "让酒",           coins: 920000 },
+  { id: 8,  name: "张靓颖",     song: "画心",           coins: 850000 },
+  { id: 9,  name: "赵雷",       song: "成都",           coins: 680000 },
+  { id: 10, name: "陈奕迅",     song: "孤勇者",         coins: 520000 },
   // 折叠区
-  { id: 11, name: "李荣浩",     coins: 480000 },
-  { id: 12, name: "华晨宇",     coins: 420000 },
-  { id: 13, name: "Taylor Swift",coins: 380000 },
-  { id: 14, name: "周杰伦",     coins: 350000 },
-  { id: 15, name: "蔡徐坤",     coins: 290000 },
-  { id: 16, name: "王源",       coins: 210000 },
-  { id: 17, name: "鹿晗",       coins: 160000 },
-  { id: 18, name: "林俊杰",     coins: 120000 },
+  { id: 11, name: "李荣浩",     song: "年少有为",       coins: 480000 },
+  { id: 12, name: "华晨宇",     song: "烟火里的尘埃",   coins: 420000 },
+  { id: 13, name: "Taylor Swift",song: "Cruel Summer",  coins: 380000 },
+  { id: 14, name: "周杰伦",     song: "晴天",           coins: 350000 },
+  { id: 15, name: "蔡徐坤",     song: "情人",           coins: 290000 },
+  { id: 16, name: "王源",       song: "吆喝",           coins: 210000 },
+  { id: 17, name: "鹿晗",       song: "勋章",           coins: 160000 },
+  { id: 18, name: "林俊杰",     song: "江南",           coins: 120000 },
 ];
 
 const AVATAR_COLORS = [
@@ -915,9 +909,9 @@ function renderCard(artist, idx) {
   return `
   <div class="artist-card" data-name="${artist.name}">
     <div class="artist-row">
-      <div class="rank-badge ${rankCls}">${idx + 1}</div>
       <div class="avatar" style="background:${getAvatarColor(artist.name)}">${getInitial(artist.name)}</div>
       <div class="artist-info">
+        <div class="artist-song">🎵 ${artist.song}</div>
         <div class="artist-name">${artist.name}</div>
         <div class="artist-coins">${fmtWan(coins)}万 金币</div>
         ${unlocked > 0 ? `<div class="unlocked-badge">🏆 已解锁 ${unlocked} 座痛楼</div>` : ''}

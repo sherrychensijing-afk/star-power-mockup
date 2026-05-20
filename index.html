@@ -2,9 +2,11 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="format-detection" content="telephone=no">
 <title>STAR POWER 半年度荣誉痛楼解锁 - 交互稿</title>
-<script src="https://cdn.tailwindcss.com"></script>
 <style>
   /* ===== CSS Variables (Star Power Official Neon Palette) ===== */
   :root {
@@ -28,15 +30,28 @@
     --progress-locked: #2a2a2a;
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  html {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+  }
 
   body {
     font-family: 'PingFang SC', -apple-system, 'Helvetica Neue', sans-serif;
     background: var(--bg-black);
     color: var(--white);
     min-height: 100vh;
+    min-height: -webkit-fill-available;
     overflow-x: hidden;
     position: relative;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
   }
 
   /* ===== Noise Texture Overlay ===== */
@@ -58,19 +73,22 @@
   /* ===== Brand Bar (Top Yellow) ===== */
   .brand-bar {
     background: linear-gradient(90deg, #F5E050 0%, #FFE135 50%, #F5E050 100%);
-    padding: 8px 16px;
+    padding: 8px 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 12px;
     position: relative;
     z-index: 10;
+    flex-wrap: nowrap;
+    overflow: hidden;
   }
   .brand-bar span {
     font-weight: 800;
-    font-size: 13px;
+    font-size: 12px;
     color: #000;
     letter-spacing: 0.5px;
+    white-space: nowrap;
   }
   .brand-dot {
     width: 6px; height: 6px;
@@ -261,9 +279,12 @@
     border: none;
     outline: none;
     color: var(--white);
-    font-size: 14px;
+    font-size: 16px;
     width: 100%;
     font-family: inherit;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 0;
   }
   .search-input::placeholder { color: #555; }
 
@@ -314,7 +335,7 @@
   .artist-row {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
   }
 
   /* Rank Badge */
@@ -335,14 +356,14 @@
 
   /* Avatar */
   .avatar {
-    width: 48px; height: 48px;
+    width: 44px; height: 44px;
     border-radius: 50%;
     flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 700;
-    font-size: 18px;
+    font-size: 16px;
     color: #fff;
     position: relative;
   }
@@ -396,7 +417,7 @@
     background: linear-gradient(135deg, var(--magenta), var(--pink));
     color: white;
     border: none;
-    padding: 8px 18px;
+    padding: 8px 14px;
     border-radius: 20px;
     font-weight: 700;
     font-size: 13px;
@@ -405,6 +426,9 @@
     transition: all 0.3s ease;
     box-shadow: 0 2px 12px rgba(255,16,240,0.3);
     white-space: nowrap;
+    -webkit-user-select: none;
+    user-select: none;
+    touch-action: manipulation;
   }
   .invest-btn:hover {
     transform: scale(1.05);
@@ -514,6 +538,9 @@
     cursor: pointer;
     transition: all 0.3s ease;
     margin-top: 8px;
+    -webkit-user-select: none;
+    user-select: none;
+    touch-action: manipulation;
   }
   .expand-btn:hover {
     border-color: var(--magenta);
@@ -559,7 +586,7 @@
     background-size: 200% 200%;
     color: white;
     border: none;
-    padding: 14px 36px;
+    padding: 14px 32px;
     border-radius: 28px;
     font-weight: 800;
     font-size: 16px;
@@ -568,6 +595,9 @@
     box-shadow: 0 4px 24px rgba(255,16,240,0.4);
     animation: earnPulse 2s ease-in-out infinite, btnGradientShift 3s ease infinite;
     letter-spacing: 1px;
+    -webkit-user-select: none;
+    user-select: none;
+    touch-action: manipulation;
   }
   @keyframes earnPulse {
     0%, 100% { box-shadow: 0 4px 24px rgba(255,16,240,0.4); }
@@ -629,7 +659,37 @@
     font-size: 11px;
     color: rgba(255,255,255,0.15);
     border-top: 1px solid rgba(255,255,255,0.04);
+    padding-bottom: calc(20px + env(safe-area-inset-bottom));
   }
+
+  /* ===== Mobile-specific overrides ===== */
+  @media screen and (max-width: 375px) {
+    .star-title { letter-spacing: -1px; }
+    .brand-bar { gap: 8px; padding: 6px 8px; }
+    .brand-bar span { font-size: 11px; }
+    .hero-section { padding: 28px 14px 28px; }
+    .artist-section { padding: 0 12px 24px; }
+    .earn-section { padding: 20px 12px 40px; }
+    .progress-text-left { font-size: 11px; }
+    .progress-text-right { font-size: 10px; }
+    .tick-label { font-size: 8px; }
+    .artist-coins { font-size: 12px; }
+    .invest-btn { padding: 6px 12px; font-size: 12px; }
+  }
+
+  @media screen and (min-width: 768px) {
+    body {
+      max-width: 480px;
+      margin: 0 auto;
+      box-shadow: 0 0 80px rgba(255,16,240,0.08);
+    }
+  }
+
+  /* Prevent iOS bounce scroll issues */
+  body {
+    overscroll-behavior: none;
+  }
+
 </style>
 </head>
 <body>

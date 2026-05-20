@@ -367,9 +367,9 @@
 
   .artist-info { flex: 1; min-width: 0; }
   .artist-song {
-    font-size: 11px;
-    color: var(--dim);
-    font-weight: 400;
+    font-size: 14px;
+    color: var(--brand-yellow);
+    font-weight: 600;
     margin-bottom: 1px;
     white-space: nowrap;
     overflow: hidden;
@@ -378,7 +378,7 @@
   }
   .artist-name {
     font-weight: 700;
-    font-size: 15px;
+    font-size: 13px;
     color: var(--white);
     white-space: nowrap;
     overflow: hidden;
@@ -667,6 +667,8 @@
     .progress-text-left { font-size: 11px; }
     .progress-text-right { font-size: 10px; }
     .tick-label { font-size: 8px; }
+    .artist-song { font-size: 13px; }
+    .artist-name { font-size: 12px; }
     .artist-coins { font-size: 12px; }
     .invest-btn { padding: 6px 12px; font-size: 12px; }
   }
@@ -738,16 +740,6 @@
   </div>
 </section>
 
-<!-- ===== Block 3: Search Bar ===== -->
-<div class="search-wrapper">
-  <div class="search-box">
-    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
-    </svg>
-    <input type="text" class="search-input" id="searchInput" placeholder="搜索艺人..." autocomplete="off">
-  </div>
-</div>
-
 <!-- ===== Block 4: Artist List ===== -->
 <section class="artist-section" id="artistSection">
   <div class="section-header">
@@ -763,10 +755,6 @@
     <span>展开更多</span>
     <svg class="expand-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
   </button>
-
-  <div class="no-results" id="noResults" style="display:none;">
-    😅 没有找到匹配的艺人
-  </div>
 </section>
 
 <!-- ===== Block 5: Earn Coins ===== -->
@@ -932,23 +920,12 @@ function renderCard(artist, idx) {
 }
 
 // ===== Render All Artists =====
-function renderArtists(filterText = '') {
+function renderArtists() {
   const container = document.getElementById('artistListContainer');
   const expandBtn = document.getElementById('expandBtn');
-  const noResults = document.getElementById('noResults');
 
-  const filtered = artists.filter(a => a.name.toLowerCase().includes(filterText.toLowerCase()));
+  const filtered = artists;
 
-  if (filtered.length === 0) {
-    container.innerHTML = '';
-    expandBtn.style.display = 'none';
-    noResults.style.display = 'block';
-    document.getElementById('artistCount').textContent = '共 0 位';
-    return;
-  }
-
-  noResults.style.display = 'none';
-  expandBtn.style.display = filtered.length > DEFAULT_SHOW ? 'flex' : 'none';
   document.getElementById('artistCount').textContent = `共 ${filtered.length} 位`;
 
   const visible = filtered.slice(0, DEFAULT_SHOW);
@@ -997,14 +974,6 @@ function toggleExpand() {
     }, 100);
   }
 }
-
-// ===== Search =====
-document.getElementById('searchInput').addEventListener('input', function(e) {
-  const val = e.target.value.trim();
-  // Reset expanded state when searching
-  isExpanded = false;
-  renderArtists(val);
-});
 
 // ===== Count-up Animation for Total Coins =====
 function animateTotalCoins() {

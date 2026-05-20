@@ -604,6 +604,121 @@
     color: var(--brand-yellow);
   }
 
+  /* 痛楼介绍图文模块 */
+  .building-intro-card {
+    background: linear-gradient(135deg, rgba(255,16,240,0.06), rgba(200,80,255,0.03));
+    border: 1px solid rgba(255,16,240,0.15);
+    border-radius: 14px;
+    padding: 18px 14px;
+    margin-bottom: 14px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .building-visual {
+    width: 90px;
+    height: 100px;
+    flex-shrink: 0;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    background: linear-gradient(180deg, #1a0828, #0d0418);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  /* 简易痛楼插画 - 用CSS画 */
+  .building-tower {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+  }
+  .tower-floor {
+    width: 48px;
+    height: 6px;
+    border-radius: 2px;
+    transition: all 0.5s ease;
+  }
+  .tower-floor.lit {
+    background: linear-gradient(90deg, var(--magenta), var(--pink), var(--orange-warm));
+    box-shadow: 0 0 8px rgba(255,16,240,0.5);
+  }
+  .tower-floor.dim { background: rgba(255,255,255,0.06); }
+  .tower-roof {
+    width: 56px;
+    height: 12px;
+    border-radius: 4px 4px 0 0;
+    background: linear-gradient(180deg, var(--brand-yellow), rgba(245,224,80,0.4));
+    box-shadow: 0 -2px 10px rgba(245,224,80,0.3);
+    margin-bottom: 1px;
+  }
+  .tower-base {
+    width: 52px;
+    height: 6px;
+    border-radius: 0 0 3px 3px;
+    background: rgba(255,255,255,0.1);
+  }
+  /* 窗户装饰 */
+  .building-windows {
+    position: absolute;
+    top: 20px; left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .window-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--brand-yellow);
+    opacity: 0.9;
+    box-shadow: 0 0 4px var(--brand-yellow);
+  }
+  .building-info {
+    flex: 1;
+    min-width: 0;
+  }
+  .building-info-title {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--brand-yellow);
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+  }
+  .building-info-desc {
+    font-size: 12px;
+    color: var(--dim);
+    line-height: 1.65;
+  }
+  .building-info-desc b {
+    color: var(--green-fluo);
+    font-weight: 700;
+  }
+  .building-tags {
+    display: flex;
+    gap: 6px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+  .building-tag {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 10px;
+    white-space: nowrap;
+  }
+  .tag-gold {
+    background: rgba(245,224,80,0.12);
+    color: var(--brand-yellow);
+    border: 1px solid rgba(245,224,80,0.25);
+  }
+  .tag-magenta {
+    background: rgba(255,16,240,0.1);
+    color: var(--magenta-deep);
+    border: 1px solid rgba(255,16,240,0.2);
+  }
+
   .countdown-row {
     display: flex;
     align-items: center;
@@ -1117,6 +1232,39 @@
     <span class="cd-block">42</span><span class="cd-label">分</span>
   </div>
 
+  <!-- 痛楼介绍图文模块 -->
+  <div class="building-intro-card">
+    <div class="building-visual">
+      <!-- CSS 绘制的痛楼插画 -->
+      <div class="building-windows">
+        <div class="window-dot"></div>
+        <div class="window-dot"></div>
+        <div class="window-dot"></div>
+      </div>
+      <div class="building-tower">
+        <div class="tower-roof"></div>
+        <div class="tower-floor lit"></div>
+        <div class="tower-floor lit"></div>
+        <div class="tower-floor lit"></div>
+        <div class="tower-floor dim"></div>
+        <div class="tower-floor dim"></div>
+        <div class="tower-base"></div>
+      </div>
+    </div>
+    <div class="building-info">
+      <div class="building-info-title">🏗 什么是「荣誉痛楼」？</div>
+      <div class="building-info-desc">
+        「荣誉痛楼」是 Star Power 月度评选中为粉丝应援打造的<b>专属成就体系</b>。<br><br>
+        每当一位艺人的累计助力金币达到 <b>100万</b> 的里程碑，就会点亮一座专属的「痛楼楼层」—— 就像一座为TA逐层建造的荣耀大厦。解锁越多，代表粉丝力量越强大！
+      </div>
+      <div class="building-tags">
+        <span class="building-tag tag-gold">🏆 100万/座</span>
+        <span class="building-tag tag-magenta">⚡ 多级阶梯</span>
+        <span class="building-tag tag-gold">🎯 实名荣誉</span>
+      </div>
+    </div>
+  </div>
+
   <div id="artistListContainer"></div>
 
   <button class="expand-btn" id="expandBtn" onclick="toggleExpand()">
@@ -1295,7 +1443,7 @@ const AVATAR_COLORS = [
 
 const PER_BUILDING = 1000000;
 const MAX_TICKS = 4;
-const DEFAULT_SHOW = 10;
+const DEFAULT_SHOW = 5;
 let isExpanded = false;
 
 // ============================================================
